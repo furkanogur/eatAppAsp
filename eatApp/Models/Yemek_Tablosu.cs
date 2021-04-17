@@ -12,18 +12,25 @@ namespace eatApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Kategori_yemek
+    public partial class Yemek_Tablosu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Kategori_yemek()
+        public Yemek_Tablosu()
         {
-            this.Yemekler = new HashSet<Yemekler>();
+            this.Begenilenler_Tablosu = new HashSet<Begenilenler_Tablosu>();
         }
     
-        public int Id { get; set; }
-        public string Kategori_yemek1 { get; set; }
+        public string yeme_Id { get; set; }
+        public string yemek_Adi { get; set; }
+        public string yemek_Malezeme_Id { get; set; }
+        public string yemek_Kategori_Id { get; set; }
+        public string yemek_Yapan_Id { get; set; }
+        public string yemek_Tarif { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Yemekler> Yemekler { get; set; }
+        public virtual ICollection<Begenilenler_Tablosu> Begenilenler_Tablosu { get; set; }
+        public virtual Kategori_Tablosu Kategori_Tablosu { get; set; }
+        public virtual Malzeme_Tablosu Malzeme_Tablosu { get; set; }
+        public virtual Uye_Tablosu Uye_Tablosu { get; set; }
     }
 }

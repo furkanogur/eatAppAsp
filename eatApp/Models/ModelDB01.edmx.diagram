@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b7fd88f887264eaca17cc86dde754431" Name="Diagram1">
+        <EntityTypeShape EntityType="eatAppModel.Begenilenler_Tablosu" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="eatAppModel.Kategori_Tablosu" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="eatAppModel.Malzeme_Tablosu" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="eatAppModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eatAppModel.Uye_Tablosu" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="eatAppModel.Yemek_Tablosu" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="eatAppModel.FK_Begenilenler_Tablosu_Uye_Tablosu" ManuallyRouted="false" />
+        <AssociationConnector Association="eatAppModel.FK_Begenilenler_Tablosu_Yemek_Tablosu" ManuallyRouted="false" />
+        <AssociationConnector Association="eatAppModel.FK_Malzeme_Tablosu_Kategori_Tablosu" ManuallyRouted="false" />
+        <AssociationConnector Association="eatAppModel.FK_Yemek_Tablosu_Kategori_Tablosu" ManuallyRouted="false" />
+        <AssociationConnector Association="eatAppModel.FK_Yemek_Tablosu_Malzeme_Tablosu" ManuallyRouted="false" />
+        <AssociationConnector Association="eatAppModel.FK_Yemek_Tablosu_Uye_Tablosu" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

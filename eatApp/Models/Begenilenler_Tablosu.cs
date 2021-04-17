@@ -10,13 +10,15 @@
 namespace eatApp.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_helpdiagrams_Result
+    public partial class Begenilenler_Tablosu
     {
-        public string Database { get; set; }
-        public string Name { get; set; }
-        public int ID { get; set; }
-        public string Owner { get; set; }
-        public int OwnerID { get; set; }
+        public string begenilenler_Id { get; set; }
+        public string begenilenler_Yemek_Id { get; set; }
+        public string begenilenler_Uye_Id { get; set; }
+    
+        public virtual Uye_Tablosu Uye_Tablosu { get; set; }
+        public virtual Yemek_Tablosu Yemek_Tablosu { get; set; }
     }
 }
