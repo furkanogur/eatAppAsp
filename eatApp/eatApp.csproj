@@ -51,6 +51,12 @@
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -70,6 +76,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -90,65 +99,72 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Models\ModelDb.Context.tt">
+    <Content Include="Models\eatAppModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelDb.edmx</DependentUpon>
-      <LastGenOutput>ModelDb.Context.cs</LastGenOutput>
+      <DependentUpon>eatAppModel.edmx</DependentUpon>
+      <LastGenOutput>eatAppModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ModelDb.tt">
+    <Content Include="Models\eatAppModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelDb.edmx</DependentUpon>
-      <LastGenOutput>ModelDb.cs</LastGenOutput>
+      <DependentUpon>eatAppModel.edmx</DependentUpon>
+      <LastGenOutput>eatAppModel.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ServisController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Birim.cs">
-      <DependentUpon>ModelDb.tt</DependentUpon>
+      <DependentUpon>eatAppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Birim_miktar.cs">
-      <DependentUpon>ModelDb.tt</DependentUpon>
+      <DependentUpon>eatAppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\eatAppModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>eatAppModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\eatAppModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>eatAppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\eatAppModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>eatAppModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Kategori_malzeme.cs">
-      <DependentUpon>ModelDb.tt</DependentUpon>
+      <DependentUpon>eatAppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Kategori_yemek.cs">
-      <DependentUpon>ModelDb.tt</DependentUpon>
+      <DependentUpon>eatAppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Malzemeler.cs">
-      <DependentUpon>ModelDb.tt</DependentUpon>
+      <DependentUpon>eatAppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Miktar.cs">
-      <DependentUpon>ModelDb.tt</DependentUpon>
+      <DependentUpon>eatAppModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelDb.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDb.Context.tt</DependentUpon>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>eatAppModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelDb.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ModelDb.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDb.edmx</DependentUpon>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>eatAppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>ModelDb.tt</DependentUpon>
+      <DependentUpon>eatAppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Yemekler.cs">
-      <DependentUpon>ModelDb.tt</DependentUpon>
+      <DependentUpon>eatAppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Yemek_malzeme.cs">
-      <DependentUpon>ModelDb.tt</DependentUpon>
+      <DependentUpon>eatAppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\birimMiktarModel.cs" />
@@ -162,12 +178,12 @@
     <Compile Include="ViewModel\yemekMalzemeModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\ModelDb.edmx">
+    <EntityDeploy Include="Models\eatAppModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelDb.Designer.cs</LastGenOutput>
+      <LastGenOutput>eatAppModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\ModelDb.edmx.diagram">
-      <DependentUpon>ModelDb.edmx</DependentUpon>
+    <Content Include="Models\eatAppModel.edmx.diagram">
+      <DependentUpon>eatAppModel.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">

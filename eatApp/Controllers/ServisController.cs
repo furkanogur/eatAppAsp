@@ -11,7 +11,7 @@ namespace eatApp.Controllers
 {
     public class ServisController : ApiController
     {
-        YemekAppEntities2 db = new YemekAppEntities2();
+        YemekAppEntities1 db = new YemekAppEntities1();
         sonucModel sonuc = new sonucModel();
 
         #region yemek
@@ -28,22 +28,22 @@ namespace eatApp.Controllers
             return liste;
         }
 
-        //[HttpPost]
-        //[Route("api/yemekekle")]
-        //public sonucModel YemekEkle(yemeklerModel model)
-        //{
+        [HttpPost]
+        [Route("api/yemekekle")]
+        public sonucModel YemekEkle(yemeklerModel kullanıcıdangelen)
+        {
 
-        //    Yemekler yeniyemek = new Yemekler();
-        //    //yeniyemek.Id = Guid.NewGuid().ToString();
-        //    yeniyemek.YemekAdi = model.YemekAdi;
-        //    yeniyemek.Tarif = model.Tarif;
-           
-        //    db.Yemekler.Add(yeniyemek);
-        //    db.SaveChanges();
-        //    sonuc.islem = true;
-        //    sonuc.mesaj = "Yeni yemek Eklendi";
-        //    return sonuc;
-        //}
+            Yemekler yeniyemek = new Yemekler();
+            yeniyemek.Id = kullanıcıdangelen.Id;
+            yeniyemek.YemekAdi = kullanıcıdangelen.YemekAdi;
+            yeniyemek.Tarif = kullanıcıdangelen.Tarif;
+
+            db.Yemekler.Add(yeniyemek);
+            db.SaveChanges();
+            sonuc.islem = true;
+            sonuc.mesaj = "Yeni yemek Eklendi";
+            return sonuc;
+        }
 
         #endregion
     }
