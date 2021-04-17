@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="89e52d1b4ccf460f93b8e5f558572972" Name="Diagram1">
+      <Diagram DiagramId="89e52d1b4ccf460f93b8e5f558572972" Name="Diagram1" ZoomLevel="73">
         <EntityTypeShape EntityType="YemekAppModel.Birim" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="YemekAppModel.Birim_miktar" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="YemekAppModel.Kategori_malzeme" Width="1.5" PointX="1.5" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="YemekAppModel.Kategori_yemek" Width="1.5" PointX="1.5" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="YemekAppModel.Kategori_yemek" Width="1.5" PointX="8.125" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="YemekAppModel.Malzemeler" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="YemekAppModel.Miktar" Width="1.5" PointX="0.75" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="YemekAppModel.Miktar" Width="1.5" PointX="13.375" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="YemekAppModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="YemekAppModel.Yemek_malzeme" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="YemekAppModel.Yemekler" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="YemekAppModel.Yemek_malzeme" Width="1.5" PointX="3.625" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="YemekAppModel.Yemekler" Width="2.75" PointX="4.25" PointY="6.625" IsExpanded="true" />
         <AssociationConnector Association="YemekAppModel.FK_Birim_miktar_Birim" ManuallyRouted="false" />
         <AssociationConnector Association="YemekAppModel.FK_Yemek_malzeme_Birim" ManuallyRouted="false" />
         <AssociationConnector Association="YemekAppModel.FK_Birim_miktar_Miktar" ManuallyRouted="false" />
