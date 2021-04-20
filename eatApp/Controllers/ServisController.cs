@@ -53,8 +53,28 @@ namespace eatApp.Controllers
             return sonuc;
         }
 
-        #endregion
+        [HttpDelete]
+        [Route("api/yemeksil/{yemekıd}")]
+        public sonucModel YemekSil(string yemekıd)
+        {
 
+            Yemek_Tablosu yemeksil = db.Yemek_Tablosu.Where(s => s.yeme_Id == yemekıd).SingleOrDefault();
+            if (yemeksil == null)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "yemek bulunamadığı için silinemedi";
+                return sonuc;
+            }
+            db.Yemek_Tablosu.Remove(yemeksil);
+            db.SaveChanges();
+            sonuc.islem = true;
+            sonuc.mesaj = "yemek silindi";
+            return sonuc;
+        }
+
+        #endregion 
+
+        #region Üye
         [HttpPost]
         [Route("api/uyeekle")]
         public sonucModel UyeEkle(uyeModel model)
@@ -70,7 +90,7 @@ namespace eatApp.Controllers
             yeniUye.uye_Adı_Soyado = model.uye_Adı_Soyado;
             yeniUye.uye_E_Mail = model.uye_E_Mail;
             yeniUye.uye_Sifre = model.uye_Sifre;
-            
+
             db.Uye_Tablosu.Add(yeniUye);
             db.SaveChanges();
             sonuc.islem = true;
@@ -105,23 +125,39 @@ namespace eatApp.Controllers
             }).SingleOrDefault();
             return kayit;
         }
-        [HttpDelete]
-        [Route("api/yemeksil/{yemekıd}")]
-        public sonucModel YemekSil(string yemekıd)
-        {
 
-            Yemek_Tablosu yemeksil = db.Yemek_Tablosu.Where(s => s.yeme_Id == yemekıd).SingleOrDefault();
-            if (yemeksil == null)
+
+        #endregion
+
+        #region malzeme
+        [HttpGet]
+        [Route("api/malzemelistele")]
+        public List<malzemeModel> MalzemeListele()
+        {
+            List<malzemeModel> liste = db.Malzeme_Tablosu.Select(x => new malzemeModel()
             {
-                sonuc.islem = false;
-                sonuc.mesaj = "yemek bulunamadığı için silinemedi";
-                return sonuc;
-            }
-            db.Yemek_Tablosu.Remove(yemeksil);
-            db.SaveChanges();
-            sonuc.islem = true;
-            sonuc.mesaj = "yemek silindi";
-            return sonuc;
+                malzeme_Id = x.malzeme_Id,
+                malzemeAdi = x.malzemeAdi,
+                malzeme_Kategori_Id = x.malzeme_Kategori_Id
+            }).ToList();
+            return liste;
         }
+        [HttpGet]
+        [Route("api/malzemebyid/{malzemeid}")]
+        public malzemeModel MalzemeById(string malzemeid)
+        {
+            malzemeModel malzeme = db.Malzeme_Tablosu.Where(s => s.malzeme_Id == malzemeid).Select(x => new malzemeModel()
+            {
+                malzeme_Id = x.malzeme_Id,
+                malzemeAdi = x.malzemeAdi,
+                malzeme_Kategori_Id = x.malzeme_Kategori_Id
+            }).SingleOrDefault();
+            return malzeme;
+        }
+
+
+
+        #endregion
+
     }
 }
