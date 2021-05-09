@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="28fea4d567124ff5b9c2862087b831a5" Name="Diagram1" ZoomLevel="56">
+        <EntityTypeShape EntityType="YemekAppModel.favori_Tablo" Width="1.5" PointX="10.125" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="YemekAppModel.Kategori_malzeme" Width="1.5" PointX="16.875" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="YemekAppModel.Kategori_yemek" Width="1.5" PointX="7.375" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="YemekAppModel.Malzeme_kategori" Width="1.5" PointX="15" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="YemekAppModel.Malzemeler" Width="1.5" PointX="12.5" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="YemekAppModel.sysdiagrams" Width="1.5" PointX="15.125" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="YemekAppModel.takipci_Tablosu" Width="1.5" PointX="3.375" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="YemekAppModel.uye_Tablosu" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="YemekAppModel.Yemek_kategori" Width="1.5" PointX="7.375" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="YemekAppModel.Yemek_malzeme" Width="1.5" PointX="10.125" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="YemekAppModel.Yemekler" Width="1.5" PointX="6.375" PointY="7.25" IsExpanded="true" />
+        <AssociationConnector Association="YemekAppModel.FK_favori_Tablo_uye_Tablosu" ManuallyRouted="false" />
+        <AssociationConnector Association="YemekAppModel.FK_favori_Tablo_Yemekler" ManuallyRouted="false" />
+        <AssociationConnector Association="YemekAppModel.FK_Malzeme_kategori_Kategori_malzeme" ManuallyRouted="false" />
+        <AssociationConnector Association="YemekAppModel.FK_Yemek_kategori_Kategori_yemek" ManuallyRouted="false" />
+        <AssociationConnector Association="YemekAppModel.FK_Malzeme_kategori_Malzemeler" ManuallyRouted="false" />
+        <AssociationConnector Association="YemekAppModel.FK_Yemek_malzeme_Malzemeler" ManuallyRouted="false" />
+        <AssociationConnector Association="YemekAppModel.FK_takipci_Tablosu_uye_Tablosu" ManuallyRouted="false" />
+        <AssociationConnector Association="YemekAppModel.FK_takipci_Tablosu_uye_Tablosu1" ManuallyRouted="false" />
+        <AssociationConnector Association="YemekAppModel.FK_Yemekler_uye_Tablosu" ManuallyRouted="false" />
+        <AssociationConnector Association="YemekAppModel.FK_Yemek_kategori_Yemekler" ManuallyRouted="false" />
+        <AssociationConnector Association="YemekAppModel.FK_Yemek_malzeme_Yemekler" ManuallyRouted="false" >
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

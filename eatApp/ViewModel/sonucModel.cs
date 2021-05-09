@@ -7,7 +7,7 @@ namespace eatApp.ViewModel
 {
     public class sonucModel
     {
-        public bool islem { get; set; }
-        public string mesaj { get; set; }
+        public bool islem {get;set;}
+        public string mesaj {get;set;}
     }
 }

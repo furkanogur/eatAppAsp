@@ -12,13 +12,13 @@ namespace eatApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Begenilenler_Tablosu
+    public partial class Malzeme_kategori
     {
-        public string begenilenler_Id { get; set; }
-        public string begenilenler_Yemek_Id { get; set; }
-        public string begenilenler_Uye_Id { get; set; }
+        public string MalzemeKategoriId { get; set; }
+        public string Malzeme_id { get; set; }
+        public string Kategori_malzeme_id { get; set; }
     
-        public virtual Uye_Tablosu Uye_Tablosu { get; set; }
-        public virtual Yemek_Tablosu Yemek_Tablosu { get; set; }
+        public virtual Kategori_malzeme Kategori_malzeme { get; set; }
+        public virtual Malzemeler Malzemeler { get; set; }
     }
 }

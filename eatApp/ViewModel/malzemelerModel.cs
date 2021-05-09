@@ -5,10 +5,9 @@ using System.Web;
 
 namespace eatApp.ViewModel
 {
-    public class kategoriModel
+    public class malzemelerModel
     {
-
-        public string kategori_Id { get; set; }
-        public string kategori_Adi { get; set; }
+        public string malzemeId { get; set; }
+        public string Malzemeler1 { get; set; }
     }
 }

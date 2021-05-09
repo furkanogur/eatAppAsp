@@ -12,31 +12,27 @@ namespace eatApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class uye_Tablosu
+    public partial class Yemekler
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public uye_Tablosu()
+        public Yemekler()
         {
             this.favori_Tablo = new HashSet<favori_Tablo>();
-            this.takipci_Tablosu = new HashSet<takipci_Tablosu>();
-            this.takipci_Tablosu1 = new HashSet<takipci_Tablosu>();
-            this.Yemekler = new HashSet<Yemekler>();
+            this.Yemek_kategori = new HashSet<Yemek_kategori>();
+            this.Yemek_malzeme = new HashSet<Yemek_malzeme>();
         }
     
-        public string uyeId { get; set; }
-        public string uyeAdSoyad { get; set; }
-        public string uyeEmail { get; set; }
-        public string uyeSifre { get; set; }
-        public string uyeTelefon { get; set; }
-        public bool uyeAdmin { get; set; }
+        public string yemekId { get; set; }
+        public string YemekUyeId { get; set; }
+        public string YemekAdi { get; set; }
+        public string Tarif { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<favori_Tablo> favori_Tablo { get; set; }
+        public virtual uye_Tablosu uye_Tablosu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<takipci_Tablosu> takipci_Tablosu { get; set; }
+        public virtual ICollection<Yemek_kategori> Yemek_kategori { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<takipci_Tablosu> takipci_Tablosu1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Yemekler> Yemekler { get; set; }
+        public virtual ICollection<Yemek_malzeme> Yemek_malzeme { get; set; }
     }
 }
