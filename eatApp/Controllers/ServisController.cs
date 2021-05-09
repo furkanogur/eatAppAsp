@@ -76,6 +76,7 @@ namespace eatApp.Controllers
             yeni.uyeAdSoyad = model.uyeAdSoyad;
             yeni.uyeSifre = model.uyeSifre;
             yeni.uyeEmail = model.uyeEmail;
+            yeni.uyeTelefon = model.uyeTelefon;
             yeni.uyeAdmin = false;
             db.uye_Tablosu.Add(yeni);
             db.SaveChanges();
