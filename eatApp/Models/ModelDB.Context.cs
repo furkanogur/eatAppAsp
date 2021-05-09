@@ -13,10 +13,10 @@ namespace eatApp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class YemekAppEntities4 : DbContext
+    public partial class YemekAppEntities : DbContext
     {
-        public YemekAppEntities4()
-            : base("name=YemekAppEntities4")
+        public YemekAppEntities()
+            : base("name=YemekAppEntities")
         {
         }
     

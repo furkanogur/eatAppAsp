@@ -17,7 +17,7 @@ namespace eatApp.Models
         public string yemekKategoriId { get; set; }
         public string Yemek_id { get; set; }
         public string Kategori_yemek_id { get; set; }
-
+    
         public virtual Kategori_yemek Kategori_yemek { get; set; }
         public virtual Yemekler Yemekler { get; set; }
     }

@@ -175,7 +175,7 @@
     <Compile Include="ViewModel\sonucModel.cs" />
     <Compile Include="ViewModel\takipciModel.cs" />
     <Compile Include="ViewModel\uyeModel.cs" />
-    <Compile Include="ViewModel\yemekKategori.cs" />
+    <Compile Include="ViewModel\yemekKategoriModel.cs" />
     <Compile Include="ViewModel\yemeklerModel.cs" />
     <Compile Include="ViewModel\yemekMalzemeModel.cs" />
   </ItemGroup>

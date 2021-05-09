@@ -66,8 +66,8 @@
           </Key>
           <Property Name="uyeId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="uyeAdSoyad" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="uyeEmail" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="uyeSifre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="uyeEmail" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="uyeSifre" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="uyeTelefon" Type="nvarchar" MaxLength="11" Nullable="false" />
           <Property Name="uyeAdmin" Type="bit" Nullable="false" />
         </EntityType>
@@ -363,8 +363,8 @@
           </Key>
           <Property Name="uyeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="uyeAdSoyad" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="uyeEmail" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="uyeSifre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="uyeEmail" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="uyeSifre" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="uyeTelefon" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="uyeAdmin" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="favori_Tablo" Relationship="Self.FK_favori_Tablo_uye_Tablosu" FromRole="uye_Tablosu" ToRole="favori_Tablo" />
@@ -539,7 +539,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="YemekAppEntities4" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="YemekAppEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="favori_Tablo" EntityType="Self.favori_Tablo" />
           <EntitySet Name="Kategori_malzeme" EntityType="Self.Kategori_malzeme" />
           <EntitySet Name="Kategori_yemek" EntityType="Self.Kategori_yemek" />
@@ -601,7 +601,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="YemekAppModelStoreContainer" CdmEntityContainer="YemekAppEntities4">
+        <EntityContainerMapping StorageEntityContainer="YemekAppModelStoreContainer" CdmEntityContainer="YemekAppEntities">
           <EntitySetMapping Name="favori_Tablo">
             <EntityTypeMapping TypeName="YemekAppModel.favori_Tablo">
               <MappingFragment StoreEntitySet="favori_Tablo">
