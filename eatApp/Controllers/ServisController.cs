@@ -12,6 +12,7 @@ namespace eatApp.Controllers
 {
     public class ServisController : ApiController
     {
+
         YemekAppEntities4 db = new YemekAppEntities4();
         sonucModel sonuc = new sonucModel();
 
@@ -289,6 +290,7 @@ namespace eatApp.Controllers
         }
 
         #endregion
+
 
 
     }
