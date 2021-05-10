@@ -65,9 +65,9 @@
             <PropertyRef Name="uyeId" />
           </Key>
           <Property Name="uyeId" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="uyeAdSoyad" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="uyeEmail" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="uyeSifre" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="uyeAdSoyad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="uyeEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="uyeSifre" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="uyeTelefon" Type="nvarchar" MaxLength="11" Nullable="false" />
           <Property Name="uyeAdmin" Type="bit" Nullable="false" />
         </EntityType>
@@ -86,8 +86,8 @@
           <Property Name="yemekMalzemeId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Yemek_id" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Malzeme_id" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Miktar" Type="int" Nullable="false" />
-          <Property Name="Birim_id" Type="int" Nullable="false" />
+          <Property Name="Miktar" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Birim" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Yemekler">
           <Key>
@@ -362,9 +362,9 @@
             <PropertyRef Name="uyeId" />
           </Key>
           <Property Name="uyeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="uyeAdSoyad" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="uyeEmail" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="uyeSifre" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="uyeAdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="uyeEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="uyeSifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="uyeTelefon" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="uyeAdmin" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="favori_Tablo" Relationship="Self.FK_favori_Tablo_uye_Tablosu" FromRole="uye_Tablosu" ToRole="favori_Tablo" />
@@ -389,8 +389,8 @@
           <Property Name="yemekMalzemeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Yemek_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Malzeme_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Miktar" Type="Int32" Nullable="false" />
-          <Property Name="Birim_id" Type="Int32" Nullable="false" />
+          <Property Name="Miktar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Birim" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Malzemeler" Relationship="Self.FK_Yemek_malzeme_Malzemeler" FromRole="Yemek_malzeme" ToRole="Malzemeler" />
           <NavigationProperty Name="Yemekler" Relationship="Self.FK_Yemek_malzeme_Yemekler" FromRole="Yemek_malzeme" ToRole="Yemekler" />
         </EntityType>
@@ -692,7 +692,7 @@
                 <ScalarProperty Name="Yemek_id" ColumnName="Yemek_id" />
                 <ScalarProperty Name="Malzeme_id" ColumnName="Malzeme_id" />
                 <ScalarProperty Name="Miktar" ColumnName="Miktar" />
-                <ScalarProperty Name="Birim_id" ColumnName="Birim_id" />
+                <ScalarProperty Name="Birim" ColumnName="Birim" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

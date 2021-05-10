@@ -10,5 +10,9 @@ namespace eatApp.ViewModel
         public string MalzemeKategoriId { get; set; }
         public string Malzeme_id { get; set; }
         public string Kategori_malzeme_id { get; set; }
+        public malzemelerModel malzemeBilgi { get; set; }
+        public kategoriMalzemeModel katMalBilgi { get; set; }
+
+
     }
 }

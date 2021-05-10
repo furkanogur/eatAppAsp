@@ -115,7 +115,7 @@ namespace eatApp.Controllers
  
         [HttpDelete]
         [Route("api/uyesil/{uyeId}")]
-        public sonucModel OgrenciSil(string uyeId)
+        public sonucModel UyeSil(string uyeId)
         {
 
             uye_Tablosu kayit = db.uye_Tablosu.Where(s => s.uyeId == uyeId).SingleOrDefault();
@@ -131,6 +131,105 @@ namespace eatApp.Controllers
             db.SaveChanges();
             sonuc.islem = true;
             sonuc.mesaj = "Üye Silindi";
+
+            return sonuc;
+        }
+
+        #endregion
+
+        #region Takipci
+
+        [HttpGet]
+        [Route("api/takipciliste")]
+        public List<takipciModel> TakipciListe()
+        {
+            List<takipciModel> liste = db.takipci_Tablosu.Select(x => new takipciModel()
+            {
+                takipId = x.takipId,
+                takipEdenUyeId = x.takipEdenUyeId,
+                takipEdilenUyeId = x.takipEdilenUyeId,
+           
+            }).ToList();
+            return liste;
+        }
+
+        [HttpGet]
+        [Route("api/takipedilenbyid/{takipedeniId}")]
+
+        public uyeModel TakipedenById(string takipedenId)
+        {
+            uyeModel kayit = db.uye_Tablosu.Where(s => s.uyeId == takipedenId).Select(x => new uyeModel()
+            {
+
+                uyeId = x.uyeId,          
+                uyeAdSoyad = x.uyeAdSoyad,
+              
+
+            }).SingleOrDefault();
+
+            return kayit;
+        }
+
+        [HttpGet]
+        [Route("api/takipedenbyid/{takipedilenId}")]
+
+        public uyeModel TakipciById(string takipedilenId)
+        {
+            uyeModel kayit = db.uye_Tablosu.Where(s => s.uyeId == takipedilenId).Select(x => new uyeModel()
+            {
+
+                uyeId = x.uyeId,
+                uyeAdSoyad = x.uyeAdSoyad,
+
+
+            }).SingleOrDefault();
+
+            return kayit;
+        }
+
+
+        [HttpPost]
+        [Route("api/takipciekle")]
+        public sonucModel TakipciEkle(takipciModel model)
+        {
+
+            if (db.takipci_Tablosu.Count(s => s.takipId == model.takipId) > 0)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Bu Kişi Zaten Takip Ediliyor!";
+                return sonuc;
+            }
+
+            takipci_Tablosu yeni = new takipci_Tablosu();
+            yeni.takipId = Guid.NewGuid().ToString();
+            yeni.takipEdenUyeId = model.takipEdenUyeId;
+            yeni.takipEdilenUyeId = model.takipEdilenUyeId;
+            db.takipci_Tablosu.Add(yeni);
+            db.SaveChanges();
+            sonuc.islem = true;
+            sonuc.mesaj = "Takipci Eklendi";
+
+            return sonuc;
+        }
+
+        [HttpDelete]
+        [Route("api/takipcisil/{takipciId}")]
+        public sonucModel TakipciSil(string takipciId)
+        {
+
+            takipci_Tablosu kayit = db.takipci_Tablosu.Where(s => s.takipId == takipciId).SingleOrDefault();
+
+            if (kayit == null)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Takipci Bulunamadı";
+                return sonuc;
+            }
+
+            db.takipci_Tablosu.Remove(kayit);
+            db.SaveChanges();
+            sonuc.islem = true;
+            sonuc.mesaj = "Takipden Çıkıldı";
 
             return sonuc;
         }
@@ -358,7 +457,15 @@ namespace eatApp.Controllers
         [HttpPost]
         [Route("api/yemekkategoriekle")]
         public sonucModel YemekKategoriEkle(yemekKategoriModel model)
-        {   
+        {
+
+
+            if (db.Yemek_kategori.Count(s => s.Yemek_id == model.Yemek_id && s.Kategori_yemek_id == model.Kategori_yemek_id) > 0)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Bu Yemek Bu Kategoriye Zaten Kayıtlıdır!";
+                return sonuc;
+            }
 
             Yemek_kategori yeni = new Yemek_kategori();
             yeni.yemekKategoriId = Guid.NewGuid().ToString();
@@ -494,11 +601,129 @@ namespace eatApp.Controllers
                 sonuc.mesaj = "Tarif Bulunamadı";
                 return sonuc;
             }
-
+           
             db.Yemekler.Remove(kayit);
             db.SaveChanges();
             sonuc.islem = true;
             sonuc.mesaj = "Tarif Silindi";
+
+            return sonuc;
+        }
+
+        #endregion
+
+        #region yemekMalzeme
+
+        [HttpGet]
+        [Route("api/yemekmalliste")]
+        public List<yemekMalzemeModel> YemekMalzemeListe()
+        {
+            List<yemekMalzemeModel> liste = db.Yemek_malzeme.Select(x => new yemekMalzemeModel()
+            {
+                yemekMalzemeId = x.yemekMalzemeId,
+                Yemek_id = x.Yemek_id,
+                Malzeme_id = x.Malzeme_id,
+                Miktar = x.Miktar,
+                Birim = x.Birim  
+            }).ToList();
+            return liste;
+        }
+
+
+        [HttpGet]
+        [Route("api/yemekmalbyid/{yemekmald}")]
+
+        public yemekMalzemeModel YemekMalById(string yemekmald)
+        {
+            yemekMalzemeModel kayit = db.Yemek_malzeme.Where(s => s.yemekMalzemeId == yemekmald).Select(x => new yemekMalzemeModel()
+            {
+
+                yemekMalzemeId = x.yemekMalzemeId,
+                Yemek_id = x.Yemek_id,
+                Malzeme_id = x.Malzeme_id,
+                Miktar = x.Miktar,
+                Birim = x.Birim
+
+            }).SingleOrDefault();
+
+            return kayit;
+        }
+
+
+
+        [HttpPost]
+        [Route("api/yemekmalekle")]
+        public sonucModel YemekMalEkle(yemekMalzemeModel model)
+        {
+
+            if (db.Yemek_malzeme.Count(s => s.Yemek_id == model.Yemek_id && s.Malzeme_id == model.Malzeme_id) > 0)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Bu Malzeme Zaten Kayıtlıdır!";
+
+                return sonuc;
+            }
+
+            Yemek_malzeme yeni = new Yemek_malzeme();
+            yeni.yemekMalzemeId = Guid.NewGuid().ToString();
+            yeni.Yemek_id = model.Yemek_id;
+            yeni.Malzeme_id = model.Malzeme_id;
+            yeni.Birim = model.Birim;
+            yeni.Miktar = model.Miktar;
+ 
+            db.Yemek_malzeme.Add(yeni);
+            db.SaveChanges();
+            sonuc.islem = true;
+            sonuc.mesaj = "Malzeme Tarife Eklendi";
+
+            return sonuc;
+        }
+
+
+        [HttpPut]
+        [Route("api/yemekmalduzenle")]
+
+        public sonucModel YemMalDuzenle(yemekMalzemeModel model)
+        {
+            Yemek_malzeme kayit = db.Yemek_malzeme.Where(s => s.yemekMalzemeId == model.yemekMalzemeId).SingleOrDefault();
+
+            if (kayit == null)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Tarifin Malzemesi Bulunamadı";
+                return sonuc;
+            }
+
+            kayit.Birim = model.Birim;
+            kayit.Miktar = model.Miktar;
+            kayit.Malzeme_id = model.Malzeme_id;
+
+            db.SaveChanges();
+            sonuc.islem = true;
+            sonuc.mesaj = "Tarifin Malzemesi Düzenlendi";
+
+            return sonuc;
+        }
+
+
+        [HttpDelete]
+        [Route("api/yemekmalzemesil/{yemekmalId}")]
+        public sonucModel YemekMalzemeSil(string yemekmalId)
+        {
+
+            Yemek_malzeme kayit = db.Yemek_malzeme.Where(s => s.yemekMalzemeId == yemekmalId).SingleOrDefault();
+
+            if (kayit == null)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Tarif Malzemesi Bulunamadı";
+                return sonuc;
+            }
+
+            db.Yemek_malzeme.Remove(kayit);
+            db.SaveChanges();
+            sonuc.islem = true;
+            sonuc.mesaj = "Tarif Malzemesi Silindi";
 
             return sonuc;
         }
@@ -597,6 +822,14 @@ namespace eatApp.Controllers
                 Malzeme_id = x.Malzeme_id,
                 Kategori_malzeme_id = x.Kategori_malzeme_id
             }).ToList();
+
+            foreach (var kayit in liste)
+            {
+                kayit.malzemeBilgi = MalzemeById(kayit.Malzeme_id);
+                kayit.katMalBilgi = KatMalById(kayit.Kategori_malzeme_id);
+
+            }
+
             return liste;
         }
 
@@ -685,6 +918,20 @@ namespace eatApp.Controllers
             return liste;
         }
 
+        [HttpGet]
+        [Route("api/malzemebyid/{malId}")]
+        public malzemelerModel MalzemeById(string malId)
+        {
+            malzemelerModel kayıt = db.Malzemeler.Where(s=>s.malzemeId == malId).Select(x => new malzemelerModel()
+            {
+                malzemeId = x.malzemeId,
+                Malzemeler1 = x.Malzemeler1,
+            }).SingleOrDefault();
+            return kayıt;
+        }
+
+
+
         [HttpPost]
         [Route("api/malzemeekle")]
         public sonucModel MalzemeEkle(malzemelerModel model)
@@ -756,6 +1003,8 @@ namespace eatApp.Controllers
 
 
         #endregion
+
+
     }
 }
 
