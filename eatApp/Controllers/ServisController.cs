@@ -238,8 +238,6 @@ namespace eatApp.Controllers
 
         #region Favori
 
-        //UyeById
-
         [HttpGet]
         [Route("api/favoribyid/{favoriId}")]
 
@@ -554,6 +552,13 @@ namespace eatApp.Controllers
            
             db.Yemekler.Add(yeni);
             db.SaveChanges();
+
+            //foreach (var kayit in model.Malzemeler)
+            //{
+            //    kayit.Yemek_id = yeni.yemekId;
+            //    YemekMalEkle(kayit);
+            //}
+
             sonuc.islem = true;
             sonuc.mesaj = "Tarif Eklendi";
 
@@ -1003,6 +1008,8 @@ namespace eatApp.Controllers
 
 
         #endregion
+
+
 
 
     }
