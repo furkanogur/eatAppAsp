@@ -19,7 +19,7 @@ namespace eatApp.Controllers
         #region Uye
 
      
-
+        //üye listele
         [HttpGet]
         [Route("api/uyeliste")]
         public List<uyeModel> UyeListe()
@@ -36,7 +36,7 @@ namespace eatApp.Controllers
             return liste;
         }
 
-    
+    //üyeyi id ye göre listele
         [HttpGet]
         [Route("api/uyebyid/{uyeId}")]
 
@@ -58,7 +58,7 @@ namespace eatApp.Controllers
         }
 
 
-
+        //üye ekleme
         [HttpPost]
         [Route("api/uyeekle")]
         public sonucModel UyeEkle(uyeModel model)
@@ -86,7 +86,7 @@ namespace eatApp.Controllers
             return sonuc;
         }
 
-     
+     //üye düzenleme
         [HttpPut]
         [Route("api/uyeduzenle")]
 
@@ -112,7 +112,7 @@ namespace eatApp.Controllers
             return sonuc;
         }
 
- 
+        //üye silme
         [HttpDelete]
         [Route("api/uyesil/{uyeId}")]
         public sonucModel UyeSil(string uyeId)
@@ -138,7 +138,7 @@ namespace eatApp.Controllers
         #endregion
 
         #region Takipci
-
+        //takipçileri listele
         [HttpGet]
         [Route("api/takipciliste")]
         public List<takipciModel> TakipciListe()
@@ -152,7 +152,7 @@ namespace eatApp.Controllers
             }).ToList();
             return liste;
         }
-
+        //takip edilen kişi
         [HttpGet]
         [Route("api/takipedilenbyid/{takipedeniId}")]
 
@@ -169,7 +169,7 @@ namespace eatApp.Controllers
 
             return kayit;
         }
-
+        //takip eden kişi
         [HttpGet]
         [Route("api/takipedenbyid/{takipedilenId}")]
 
@@ -187,7 +187,7 @@ namespace eatApp.Controllers
             return kayit;
         }
 
-
+        //takipçi ekleme
         [HttpPost]
         [Route("api/takipciekle")]
         public sonucModel TakipciEkle(takipciModel model)
@@ -211,7 +211,7 @@ namespace eatApp.Controllers
 
             return sonuc;
         }
-
+        //takipten çıkma
         [HttpDelete]
         [Route("api/takipcisil/{takipciId}")]
         public sonucModel TakipciSil(string takipciId)
@@ -237,7 +237,7 @@ namespace eatApp.Controllers
         #endregion
 
         #region Favori
-
+        // favori id ye göre listeleme 
         [HttpGet]
         [Route("api/favoribyid/{favoriId}")]
 
@@ -253,7 +253,7 @@ namespace eatApp.Controllers
 
             return kayit;
         }
-
+        //favoriye ekleme
         [HttpPost]
         [Route("api/favoriekle")]
         public sonucModel FavoriEkle(favoriModel model)
@@ -278,7 +278,7 @@ namespace eatApp.Controllers
 
             return sonuc;
         }
-
+        // fovoriyi kaldırma
         [HttpDelete]
         [Route("api/favorisil/{favoriId}")]
         public sonucModel FavoriSil(string favoriId)
@@ -304,7 +304,7 @@ namespace eatApp.Controllers
         #endregion
 
         #region KategoriYemek
-
+        //yemeğin kategorileri(örn yemeğin tuzlu kategorisinde olması)
         [HttpGet]
         [Route("api/katYemekliste")]
         public List<kategoriYemekModel> KatYemekListe()
@@ -317,7 +317,7 @@ namespace eatApp.Controllers
             return liste;
         }
 
-
+        //spesifik olarak kategori çağırma örn tatlı tuzlu vs
         [HttpGet]
         [Route("api/katyemekbyid/{katyemekId}")]
         public kategoriYemekModel KatYemekById(string katyemekId)
@@ -332,6 +332,10 @@ namespace eatApp.Controllers
             return kayit;
         }
 
+
+
+
+        // yemek kategorisi ekle örn tuzlu vs
         [HttpPost]
         [Route("api/katyemekekle")]
         public sonucModel KatYemekEkle(kategoriYemekModel model)
@@ -355,7 +359,7 @@ namespace eatApp.Controllers
 
             return sonuc;
         }
-
+        // yemeğin kategorisini düzenleme öneğin tuzlu yerine tuzlular
         [HttpPut]
         [Route("api/katyemekduzenle")]
 
@@ -377,7 +381,7 @@ namespace eatApp.Controllers
             sonuc.mesaj = "Yemek Kategori Düzenlendi";
             return sonuc;
         }
-
+        // örneğin tuzlu kategorisini sil
         [HttpDelete]
         [Route("api/katyemeksil/{katyemekId}")]
         public sonucModel KatYemekSil(string katyemekId)
@@ -404,31 +408,43 @@ namespace eatApp.Controllers
 
         #region YemekKategori
 
-
+        //Kategori listele
         [HttpGet]
-        [Route("api/yemekkategoriliste/{yemekKatId}")]
-        public List<yemekKategoriModel> yemekKategoriListe(string yemekKatId)
+        [Route("api/yemekkatliste")]
+        public List<yemekKategoriModel> YemekKategoriListe()
         {
-            List<yemekKategoriModel> liste = db.Yemek_kategori.Where(s => s.Yemek_id == yemekKatId).Select(x => new yemekKategoriModel()
+            List<yemekKategoriModel> liste = db.Yemek_kategori.Select(x => new yemekKategoriModel()
             {
                 yemekKategoriId = x.yemekKategoriId,
                 Kategori_yemek_id = x.Kategori_yemek_id,
                 Yemek_id = x.Yemek_id
-
             }).ToList();
+            return liste;
+        }
 
+        //bir yemek birden fazla kategoride olabilir yemeğin kategorilerini listeleme id ile
+        //yemekdeki kategorileri listeliyor
+        [HttpGet]
+        [Route("api/yemekkategoriliste/{yemekkatıd}")]
+        public List<yemekKategoriModel> yemekKategoriListebyid(string yemekkatıd)
+        {
+            List<yemekKategoriModel> liste = db.Yemek_kategori.Where(s => s.Yemek_id == yemekkatıd).Select(x => new yemekKategoriModel()
+            {
+                yemekKategoriId = x.yemekKategoriId,
+                Kategori_yemek_id = x.Kategori_yemek_id,
+                Yemek_id = x.Yemek_id
+            }).ToList();
+            
+            //foreach lazım bura çünkü yemepin kategorisinin adı yok aynı şekil alttakine de tam tersini yazıns
             foreach (var kayit in liste)
             {
-                kayit.yemekBilgi = YemekById(kayit.Yemek_id);
-                kayit.katYemekBilgi = KatYemekById(kayit.yemekKategoriId);
-
-            }
-
+                kayit.KategoriYemekBilgisi = KatYemekById(kayit.Kategori_yemek_id);
+            };
             return liste;
         }
 
 
-
+        //kategorideki yemekleri listeliyor
         [HttpGet]
         [Route("api/kategoriyemekliste/{katYemekId}")]
         public List<yemekKategoriModel> KategoriYemekListe(string katYemekId)
@@ -440,14 +456,6 @@ namespace eatApp.Controllers
                 Yemek_id = x.Yemek_id
 
             }).ToList();
-
-            foreach (var kayit in liste)
-            {
-                kayit.yemekBilgi = YemekById(kayit.Yemek_id);
-                kayit.katYemekBilgi = KatYemekById(kayit.yemekKategoriId);
-
-            }
-
             return liste;
         }
 
@@ -515,6 +523,12 @@ namespace eatApp.Controllers
                 YemekUyeId = x.YemekUyeId,
                 Tarif = x.Tarif
             }).ToList();
+            foreach (var kayit in liste)
+            {
+                kayit.UyeBilgisi = UyeById(kayit.YemekUyeId);
+                kayit.YemekKategori = yemekKategoriListebyid(kayit.yemekId);
+               
+            }
             return liste;
         }
 
@@ -552,16 +566,9 @@ namespace eatApp.Controllers
            
             db.Yemekler.Add(yeni);
             db.SaveChanges();
-
-            //foreach (var kayit in model.Malzemeler)
-            //{
-            //    kayit.Yemek_id = yeni.yemekId;
-            //    YemekMalEkle(kayit);
-            //}
-
             sonuc.islem = true;
             sonuc.mesaj = "Tarif Eklendi";
-
+            sonuc.id = yeni.yemekId;
             return sonuc;
         }
 
@@ -653,6 +660,25 @@ namespace eatApp.Controllers
 
             return kayit;
         }
+        //yemek malzeme yemek ıd ile arama
+        [HttpGet]
+        [Route("api/yemekmalyemekıd/{yemekıd}")]
+
+        public List<yemekMalzemeModel> YemekMalYemekId(string yemekıd)
+        {
+            List<yemekMalzemeModel> kayit = db.Yemek_malzeme.Where(s => s.Yemek_id == yemekıd).Select(x => new yemekMalzemeModel()
+            {
+
+                yemekMalzemeId = x.yemekMalzemeId,
+                Yemek_id = x.Yemek_id,
+                Malzeme_id = x.Malzeme_id,
+                Miktar = x.Miktar,
+                Birim = x.Birim
+
+            }).ToList();
+
+            return kayit;
+        }
 
 
 
@@ -668,6 +694,8 @@ namespace eatApp.Controllers
 
                 return sonuc;
             }
+
+
 
             Yemek_malzeme yeni = new Yemek_malzeme();
             yeni.yemekMalzemeId = Guid.NewGuid().ToString();
@@ -1009,6 +1037,7 @@ namespace eatApp.Controllers
 
         #endregion
 
+      
 
 
 

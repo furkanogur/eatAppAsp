@@ -10,7 +10,6 @@ namespace eatApp.ViewModel
         public string yemekKategoriId { get; set; }
         public string Yemek_id { get; set; }
         public string Kategori_yemek_id { get; set; }
-        public yemeklerModel yemekBilgi { get; set; }
-        public kategoriYemekModel katYemekBilgi { get; set; }
+        public kategoriYemekModel KategoriYemekBilgisi { get; set; }
     }
 }
