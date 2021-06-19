@@ -1,0 +1,738 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="YemekAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="favori_Tablo">
+          <Key>
+            <PropertyRef Name="favoriId" />
+          </Key>
+          <Property Name="favoriId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="favoriYemekId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="favoriUyeId" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kategori_malzeme">
+          <Key>
+            <PropertyRef Name="katMalzemeId" />
+          </Key>
+          <Property Name="katMalzemeId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Kategori_malzeme" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kategori_yemek">
+          <Key>
+            <PropertyRef Name="katYemekId" />
+          </Key>
+          <Property Name="katYemekId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Kategori_yemek" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Malzeme_kategori">
+          <Key>
+            <PropertyRef Name="MalzemeKategoriId" />
+          </Key>
+          <Property Name="MalzemeKategoriId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Malzeme_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Kategori_malzeme_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Malzemeler">
+          <Key>
+            <PropertyRef Name="malzemeId" />
+          </Key>
+          <Property Name="malzemeId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Malzemeler" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="takipci_Tablosu">
+          <Key>
+            <PropertyRef Name="takipId" />
+          </Key>
+          <Property Name="takipId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="takipEdenUyeId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="takipEdilenUyeId" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="uye_Tablosu">
+          <Key>
+            <PropertyRef Name="uyeId" />
+          </Key>
+          <Property Name="uyeId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="uyeAdSoyad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="uyeEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="uyeSifre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="uyeTelefon" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="uyeAdmin" Type="bit" Nullable="false" />
+          <Property Name="uyeFoto" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Yemek_kategori">
+          <Key>
+            <PropertyRef Name="yemekKategoriId" />
+          </Key>
+          <Property Name="yemekKategoriId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Yemek_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Kategori_yemek_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Yemek_malzeme">
+          <Key>
+            <PropertyRef Name="yemekMalzemeId" />
+          </Key>
+          <Property Name="yemekMalzemeId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Yemek_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Malzeme_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Miktar" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Birim" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Yemekler">
+          <Key>
+            <PropertyRef Name="yemekId" />
+          </Key>
+          <Property Name="yemekId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="YemekUyeId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="YemekAdi" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tarif" Type="nvarchar(max)" />
+          <Property Name="yemekFoto" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_favori_Tablo_uye_Tablosu">
+          <End Role="uye_Tablosu" Type="Self.uye_Tablosu" Multiplicity="1" />
+          <End Role="favori_Tablo" Type="Self.favori_Tablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uye_Tablosu">
+              <PropertyRef Name="uyeId" />
+            </Principal>
+            <Dependent Role="favori_Tablo">
+              <PropertyRef Name="favoriUyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_favori_Tablo_Yemekler">
+          <End Role="Yemekler" Type="Self.Yemekler" Multiplicity="1" />
+          <End Role="favori_Tablo" Type="Self.favori_Tablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yemekler">
+              <PropertyRef Name="yemekId" />
+            </Principal>
+            <Dependent Role="favori_Tablo">
+              <PropertyRef Name="favoriYemekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Malzeme_kategori_Kategori_malzeme">
+          <End Role="Kategori_malzeme" Type="Self.Kategori_malzeme" Multiplicity="1" />
+          <End Role="Malzeme_kategori" Type="Self.Malzeme_kategori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori_malzeme">
+              <PropertyRef Name="katMalzemeId" />
+            </Principal>
+            <Dependent Role="Malzeme_kategori">
+              <PropertyRef Name="Kategori_malzeme_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Malzeme_kategori_Malzemeler">
+          <End Role="Malzemeler" Type="Self.Malzemeler" Multiplicity="1" />
+          <End Role="Malzeme_kategori" Type="Self.Malzeme_kategori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Malzemeler">
+              <PropertyRef Name="malzemeId" />
+            </Principal>
+            <Dependent Role="Malzeme_kategori">
+              <PropertyRef Name="Malzeme_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_takipci_Tablosu_uye_Tablosu">
+          <End Role="uye_Tablosu" Type="Self.uye_Tablosu" Multiplicity="1" />
+          <End Role="takipci_Tablosu" Type="Self.takipci_Tablosu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uye_Tablosu">
+              <PropertyRef Name="uyeId" />
+            </Principal>
+            <Dependent Role="takipci_Tablosu">
+              <PropertyRef Name="takipEdenUyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_takipci_Tablosu_uye_Tablosu1">
+          <End Role="uye_Tablosu" Type="Self.uye_Tablosu" Multiplicity="1" />
+          <End Role="takipci_Tablosu" Type="Self.takipci_Tablosu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uye_Tablosu">
+              <PropertyRef Name="uyeId" />
+            </Principal>
+            <Dependent Role="takipci_Tablosu">
+              <PropertyRef Name="takipEdilenUyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yemek_kategori_Kategori_yemek">
+          <End Role="Kategori_yemek" Type="Self.Kategori_yemek" Multiplicity="1" />
+          <End Role="Yemek_kategori" Type="Self.Yemek_kategori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori_yemek">
+              <PropertyRef Name="katYemekId" />
+            </Principal>
+            <Dependent Role="Yemek_kategori">
+              <PropertyRef Name="Kategori_yemek_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yemek_kategori_Yemekler">
+          <End Role="Yemekler" Type="Self.Yemekler" Multiplicity="1" />
+          <End Role="Yemek_kategori" Type="Self.Yemek_kategori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yemekler">
+              <PropertyRef Name="yemekId" />
+            </Principal>
+            <Dependent Role="Yemek_kategori">
+              <PropertyRef Name="Yemek_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yemek_malzeme_Malzemeler">
+          <End Role="Malzemeler" Type="Self.Malzemeler" Multiplicity="1" />
+          <End Role="Yemek_malzeme" Type="Self.Yemek_malzeme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Malzemeler">
+              <PropertyRef Name="malzemeId" />
+            </Principal>
+            <Dependent Role="Yemek_malzeme">
+              <PropertyRef Name="Malzeme_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yemek_malzeme_Yemekler">
+          <End Role="Yemekler" Type="Self.Yemekler" Multiplicity="1" />
+          <End Role="Yemek_malzeme" Type="Self.Yemek_malzeme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yemekler">
+              <PropertyRef Name="yemekId" />
+            </Principal>
+            <Dependent Role="Yemek_malzeme">
+              <PropertyRef Name="Yemek_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yemekler_uye_Tablosu">
+          <End Role="uye_Tablosu" Type="Self.uye_Tablosu" Multiplicity="1" />
+          <End Role="Yemekler" Type="Self.Yemekler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uye_Tablosu">
+              <PropertyRef Name="uyeId" />
+            </Principal>
+            <Dependent Role="Yemekler">
+              <PropertyRef Name="YemekUyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="YemekAppModelStoreContainer">
+          <EntitySet Name="favori_Tablo" EntityType="Self.favori_Tablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategori_malzeme" EntityType="Self.Kategori_malzeme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategori_yemek" EntityType="Self.Kategori_yemek" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Malzeme_kategori" EntityType="Self.Malzeme_kategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Malzemeler" EntityType="Self.Malzemeler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="takipci_Tablosu" EntityType="Self.takipci_Tablosu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="uye_Tablosu" EntityType="Self.uye_Tablosu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Yemek_kategori" EntityType="Self.Yemek_kategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Yemek_malzeme" EntityType="Self.Yemek_malzeme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Yemekler" EntityType="Self.Yemekler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_favori_Tablo_uye_Tablosu" Association="Self.FK_favori_Tablo_uye_Tablosu">
+            <End Role="uye_Tablosu" EntitySet="uye_Tablosu" />
+            <End Role="favori_Tablo" EntitySet="favori_Tablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_favori_Tablo_Yemekler" Association="Self.FK_favori_Tablo_Yemekler">
+            <End Role="Yemekler" EntitySet="Yemekler" />
+            <End Role="favori_Tablo" EntitySet="favori_Tablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Malzeme_kategori_Kategori_malzeme" Association="Self.FK_Malzeme_kategori_Kategori_malzeme">
+            <End Role="Kategori_malzeme" EntitySet="Kategori_malzeme" />
+            <End Role="Malzeme_kategori" EntitySet="Malzeme_kategori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Malzeme_kategori_Malzemeler" Association="Self.FK_Malzeme_kategori_Malzemeler">
+            <End Role="Malzemeler" EntitySet="Malzemeler" />
+            <End Role="Malzeme_kategori" EntitySet="Malzeme_kategori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_takipci_Tablosu_uye_Tablosu" Association="Self.FK_takipci_Tablosu_uye_Tablosu">
+            <End Role="uye_Tablosu" EntitySet="uye_Tablosu" />
+            <End Role="takipci_Tablosu" EntitySet="takipci_Tablosu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_takipci_Tablosu_uye_Tablosu1" Association="Self.FK_takipci_Tablosu_uye_Tablosu1">
+            <End Role="uye_Tablosu" EntitySet="uye_Tablosu" />
+            <End Role="takipci_Tablosu" EntitySet="takipci_Tablosu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yemek_kategori_Kategori_yemek" Association="Self.FK_Yemek_kategori_Kategori_yemek">
+            <End Role="Kategori_yemek" EntitySet="Kategori_yemek" />
+            <End Role="Yemek_kategori" EntitySet="Yemek_kategori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yemek_kategori_Yemekler" Association="Self.FK_Yemek_kategori_Yemekler">
+            <End Role="Yemekler" EntitySet="Yemekler" />
+            <End Role="Yemek_kategori" EntitySet="Yemek_kategori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yemek_malzeme_Malzemeler" Association="Self.FK_Yemek_malzeme_Malzemeler">
+            <End Role="Malzemeler" EntitySet="Malzemeler" />
+            <End Role="Yemek_malzeme" EntitySet="Yemek_malzeme" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yemek_malzeme_Yemekler" Association="Self.FK_Yemek_malzeme_Yemekler">
+            <End Role="Yemekler" EntitySet="Yemekler" />
+            <End Role="Yemek_malzeme" EntitySet="Yemek_malzeme" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yemekler_uye_Tablosu" Association="Self.FK_Yemekler_uye_Tablosu">
+            <End Role="uye_Tablosu" EntitySet="uye_Tablosu" />
+            <End Role="Yemekler" EntitySet="Yemekler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="YemekAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="favori_Tablo">
+          <Key>
+            <PropertyRef Name="favoriId" />
+          </Key>
+          <Property Name="favoriId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="favoriYemekId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="favoriUyeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="uye_Tablosu" Relationship="Self.FK_favori_Tablo_uye_Tablosu" FromRole="favori_Tablo" ToRole="uye_Tablosu" />
+          <NavigationProperty Name="Yemekler" Relationship="Self.FK_favori_Tablo_Yemekler" FromRole="favori_Tablo" ToRole="Yemekler" />
+        </EntityType>
+        <EntityType Name="Kategori_malzeme">
+          <Key>
+            <PropertyRef Name="katMalzemeId" />
+          </Key>
+          <Property Name="katMalzemeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Kategori_malzeme1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Malzeme_kategori" Relationship="Self.FK_Malzeme_kategori_Kategori_malzeme" FromRole="Kategori_malzeme" ToRole="Malzeme_kategori" />
+        </EntityType>
+        <EntityType Name="Kategori_yemek">
+          <Key>
+            <PropertyRef Name="katYemekId" />
+          </Key>
+          <Property Name="katYemekId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Kategori_yemek1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Yemek_kategori" Relationship="Self.FK_Yemek_kategori_Kategori_yemek" FromRole="Kategori_yemek" ToRole="Yemek_kategori" />
+        </EntityType>
+        <EntityType Name="Malzeme_kategori">
+          <Key>
+            <PropertyRef Name="MalzemeKategoriId" />
+          </Key>
+          <Property Name="MalzemeKategoriId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Malzeme_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Kategori_malzeme_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kategori_malzeme" Relationship="Self.FK_Malzeme_kategori_Kategori_malzeme" FromRole="Malzeme_kategori" ToRole="Kategori_malzeme" />
+          <NavigationProperty Name="Malzemeler" Relationship="Self.FK_Malzeme_kategori_Malzemeler" FromRole="Malzeme_kategori" ToRole="Malzemeler" />
+        </EntityType>
+        <EntityType Name="Malzemeler">
+          <Key>
+            <PropertyRef Name="malzemeId" />
+          </Key>
+          <Property Name="malzemeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Malzemeler1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Malzeme_kategori" Relationship="Self.FK_Malzeme_kategori_Malzemeler" FromRole="Malzemeler" ToRole="Malzeme_kategori" />
+          <NavigationProperty Name="Yemek_malzeme" Relationship="Self.FK_Yemek_malzeme_Malzemeler" FromRole="Malzemeler" ToRole="Yemek_malzeme" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="takipci_Tablosu">
+          <Key>
+            <PropertyRef Name="takipId" />
+          </Key>
+          <Property Name="takipId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="takipEdenUyeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="takipEdilenUyeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="uye_Tablosu" Relationship="Self.FK_takipci_Tablosu_uye_Tablosu" FromRole="takipci_Tablosu" ToRole="uye_Tablosu" />
+          <NavigationProperty Name="uye_Tablosu1" Relationship="Self.FK_takipci_Tablosu_uye_Tablosu1" FromRole="takipci_Tablosu" ToRole="uye_Tablosu" />
+        </EntityType>
+        <EntityType Name="uye_Tablosu">
+          <Key>
+            <PropertyRef Name="uyeId" />
+          </Key>
+          <Property Name="uyeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="uyeAdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="uyeEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="uyeSifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="uyeTelefon" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="uyeAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="uyeFoto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="favori_Tablo" Relationship="Self.FK_favori_Tablo_uye_Tablosu" FromRole="uye_Tablosu" ToRole="favori_Tablo" />
+          <NavigationProperty Name="takipci_Tablosu" Relationship="Self.FK_takipci_Tablosu_uye_Tablosu" FromRole="uye_Tablosu" ToRole="takipci_Tablosu" />
+          <NavigationProperty Name="takipci_Tablosu1" Relationship="Self.FK_takipci_Tablosu_uye_Tablosu1" FromRole="uye_Tablosu" ToRole="takipci_Tablosu" />
+          <NavigationProperty Name="Yemekler" Relationship="Self.FK_Yemekler_uye_Tablosu" FromRole="uye_Tablosu" ToRole="Yemekler" />
+        </EntityType>
+        <EntityType Name="Yemek_kategori">
+          <Key>
+            <PropertyRef Name="yemekKategoriId" />
+          </Key>
+          <Property Name="yemekKategoriId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Yemek_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Kategori_yemek_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kategori_yemek" Relationship="Self.FK_Yemek_kategori_Kategori_yemek" FromRole="Yemek_kategori" ToRole="Kategori_yemek" />
+          <NavigationProperty Name="Yemekler" Relationship="Self.FK_Yemek_kategori_Yemekler" FromRole="Yemek_kategori" ToRole="Yemekler" />
+        </EntityType>
+        <EntityType Name="Yemek_malzeme">
+          <Key>
+            <PropertyRef Name="yemekMalzemeId" />
+          </Key>
+          <Property Name="yemekMalzemeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Yemek_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Malzeme_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Miktar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Birim" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Malzemeler" Relationship="Self.FK_Yemek_malzeme_Malzemeler" FromRole="Yemek_malzeme" ToRole="Malzemeler" />
+          <NavigationProperty Name="Yemekler" Relationship="Self.FK_Yemek_malzeme_Yemekler" FromRole="Yemek_malzeme" ToRole="Yemekler" />
+        </EntityType>
+        <EntityType Name="Yemekler">
+          <Key>
+            <PropertyRef Name="yemekId" />
+          </Key>
+          <Property Name="yemekId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="YemekUyeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="YemekAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tarif" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="yemekFoto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="favori_Tablo" Relationship="Self.FK_favori_Tablo_Yemekler" FromRole="Yemekler" ToRole="favori_Tablo" />
+          <NavigationProperty Name="uye_Tablosu" Relationship="Self.FK_Yemekler_uye_Tablosu" FromRole="Yemekler" ToRole="uye_Tablosu" />
+          <NavigationProperty Name="Yemek_kategori" Relationship="Self.FK_Yemek_kategori_Yemekler" FromRole="Yemekler" ToRole="Yemek_kategori" />
+          <NavigationProperty Name="Yemek_malzeme" Relationship="Self.FK_Yemek_malzeme_Yemekler" FromRole="Yemekler" ToRole="Yemek_malzeme" />
+        </EntityType>
+        <Association Name="FK_favori_Tablo_uye_Tablosu">
+          <End Role="uye_Tablosu" Type="Self.uye_Tablosu" Multiplicity="1" />
+          <End Role="favori_Tablo" Type="Self.favori_Tablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uye_Tablosu">
+              <PropertyRef Name="uyeId" />
+            </Principal>
+            <Dependent Role="favori_Tablo">
+              <PropertyRef Name="favoriUyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_favori_Tablo_Yemekler">
+          <End Role="Yemekler" Type="Self.Yemekler" Multiplicity="1" />
+          <End Role="favori_Tablo" Type="Self.favori_Tablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yemekler">
+              <PropertyRef Name="yemekId" />
+            </Principal>
+            <Dependent Role="favori_Tablo">
+              <PropertyRef Name="favoriYemekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Malzeme_kategori_Kategori_malzeme">
+          <End Role="Kategori_malzeme" Type="Self.Kategori_malzeme" Multiplicity="1" />
+          <End Role="Malzeme_kategori" Type="Self.Malzeme_kategori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori_malzeme">
+              <PropertyRef Name="katMalzemeId" />
+            </Principal>
+            <Dependent Role="Malzeme_kategori">
+              <PropertyRef Name="Kategori_malzeme_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yemek_kategori_Kategori_yemek">
+          <End Role="Kategori_yemek" Type="Self.Kategori_yemek" Multiplicity="1" />
+          <End Role="Yemek_kategori" Type="Self.Yemek_kategori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori_yemek">
+              <PropertyRef Name="katYemekId" />
+            </Principal>
+            <Dependent Role="Yemek_kategori">
+              <PropertyRef Name="Kategori_yemek_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Malzeme_kategori_Malzemeler">
+          <End Role="Malzemeler" Type="Self.Malzemeler" Multiplicity="1" />
+          <End Role="Malzeme_kategori" Type="Self.Malzeme_kategori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Malzemeler">
+              <PropertyRef Name="malzemeId" />
+            </Principal>
+            <Dependent Role="Malzeme_kategori">
+              <PropertyRef Name="Malzeme_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yemek_malzeme_Malzemeler">
+          <End Role="Malzemeler" Type="Self.Malzemeler" Multiplicity="1" />
+          <End Role="Yemek_malzeme" Type="Self.Yemek_malzeme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Malzemeler">
+              <PropertyRef Name="malzemeId" />
+            </Principal>
+            <Dependent Role="Yemek_malzeme">
+              <PropertyRef Name="Malzeme_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_takipci_Tablosu_uye_Tablosu">
+          <End Role="uye_Tablosu" Type="Self.uye_Tablosu" Multiplicity="1" />
+          <End Role="takipci_Tablosu" Type="Self.takipci_Tablosu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uye_Tablosu">
+              <PropertyRef Name="uyeId" />
+            </Principal>
+            <Dependent Role="takipci_Tablosu">
+              <PropertyRef Name="takipEdenUyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_takipci_Tablosu_uye_Tablosu1">
+          <End Role="uye_Tablosu" Type="Self.uye_Tablosu" Multiplicity="1" />
+          <End Role="takipci_Tablosu" Type="Self.takipci_Tablosu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uye_Tablosu">
+              <PropertyRef Name="uyeId" />
+            </Principal>
+            <Dependent Role="takipci_Tablosu">
+              <PropertyRef Name="takipEdilenUyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yemekler_uye_Tablosu">
+          <End Role="uye_Tablosu" Type="Self.uye_Tablosu" Multiplicity="1" />
+          <End Role="Yemekler" Type="Self.Yemekler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uye_Tablosu">
+              <PropertyRef Name="uyeId" />
+            </Principal>
+            <Dependent Role="Yemekler">
+              <PropertyRef Name="YemekUyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yemek_kategori_Yemekler">
+          <End Role="Yemekler" Type="Self.Yemekler" Multiplicity="1" />
+          <End Role="Yemek_kategori" Type="Self.Yemek_kategori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yemekler">
+              <PropertyRef Name="yemekId" />
+            </Principal>
+            <Dependent Role="Yemek_kategori">
+              <PropertyRef Name="Yemek_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yemek_malzeme_Yemekler">
+          <End Role="Yemekler" Type="Self.Yemekler" Multiplicity="1" />
+          <End Role="Yemek_malzeme" Type="Self.Yemek_malzeme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yemekler">
+              <PropertyRef Name="yemekId" />
+            </Principal>
+            <Dependent Role="Yemek_malzeme">
+              <PropertyRef Name="Yemek_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="YemekAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="favori_Tablo" EntityType="Self.favori_Tablo" />
+          <EntitySet Name="Kategori_malzeme" EntityType="Self.Kategori_malzeme" />
+          <EntitySet Name="Kategori_yemek" EntityType="Self.Kategori_yemek" />
+          <EntitySet Name="Malzeme_kategori" EntityType="Self.Malzeme_kategori" />
+          <EntitySet Name="Malzemeler" EntityType="Self.Malzemeler" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="takipci_Tablosu" EntityType="Self.takipci_Tablosu" />
+          <EntitySet Name="uye_Tablosu" EntityType="Self.uye_Tablosu" />
+          <EntitySet Name="Yemek_kategori" EntityType="Self.Yemek_kategori" />
+          <EntitySet Name="Yemek_malzeme" EntityType="Self.Yemek_malzeme" />
+          <EntitySet Name="Yemekler" EntityType="Self.Yemekler" />
+          <AssociationSet Name="FK_favori_Tablo_uye_Tablosu" Association="Self.FK_favori_Tablo_uye_Tablosu">
+            <End Role="uye_Tablosu" EntitySet="uye_Tablosu" />
+            <End Role="favori_Tablo" EntitySet="favori_Tablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_favori_Tablo_Yemekler" Association="Self.FK_favori_Tablo_Yemekler">
+            <End Role="Yemekler" EntitySet="Yemekler" />
+            <End Role="favori_Tablo" EntitySet="favori_Tablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Malzeme_kategori_Kategori_malzeme" Association="Self.FK_Malzeme_kategori_Kategori_malzeme">
+            <End Role="Kategori_malzeme" EntitySet="Kategori_malzeme" />
+            <End Role="Malzeme_kategori" EntitySet="Malzeme_kategori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yemek_kategori_Kategori_yemek" Association="Self.FK_Yemek_kategori_Kategori_yemek">
+            <End Role="Kategori_yemek" EntitySet="Kategori_yemek" />
+            <End Role="Yemek_kategori" EntitySet="Yemek_kategori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Malzeme_kategori_Malzemeler" Association="Self.FK_Malzeme_kategori_Malzemeler">
+            <End Role="Malzemeler" EntitySet="Malzemeler" />
+            <End Role="Malzeme_kategori" EntitySet="Malzeme_kategori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yemek_malzeme_Malzemeler" Association="Self.FK_Yemek_malzeme_Malzemeler">
+            <End Role="Malzemeler" EntitySet="Malzemeler" />
+            <End Role="Yemek_malzeme" EntitySet="Yemek_malzeme" />
+          </AssociationSet>
+          <AssociationSet Name="FK_takipci_Tablosu_uye_Tablosu" Association="Self.FK_takipci_Tablosu_uye_Tablosu">
+            <End Role="uye_Tablosu" EntitySet="uye_Tablosu" />
+            <End Role="takipci_Tablosu" EntitySet="takipci_Tablosu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_takipci_Tablosu_uye_Tablosu1" Association="Self.FK_takipci_Tablosu_uye_Tablosu1">
+            <End Role="uye_Tablosu" EntitySet="uye_Tablosu" />
+            <End Role="takipci_Tablosu" EntitySet="takipci_Tablosu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yemekler_uye_Tablosu" Association="Self.FK_Yemekler_uye_Tablosu">
+            <End Role="uye_Tablosu" EntitySet="uye_Tablosu" />
+            <End Role="Yemekler" EntitySet="Yemekler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yemek_kategori_Yemekler" Association="Self.FK_Yemek_kategori_Yemekler">
+            <End Role="Yemekler" EntitySet="Yemekler" />
+            <End Role="Yemek_kategori" EntitySet="Yemek_kategori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yemek_malzeme_Yemekler" Association="Self.FK_Yemek_malzeme_Yemekler">
+            <End Role="Yemekler" EntitySet="Yemekler" />
+            <End Role="Yemek_malzeme" EntitySet="Yemek_malzeme" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="YemekAppModelStoreContainer" CdmEntityContainer="YemekAppEntities">
+          <EntitySetMapping Name="favori_Tablo">
+            <EntityTypeMapping TypeName="YemekAppModel.favori_Tablo">
+              <MappingFragment StoreEntitySet="favori_Tablo">
+                <ScalarProperty Name="favoriId" ColumnName="favoriId" />
+                <ScalarProperty Name="favoriYemekId" ColumnName="favoriYemekId" />
+                <ScalarProperty Name="favoriUyeId" ColumnName="favoriUyeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategori_malzeme">
+            <EntityTypeMapping TypeName="YemekAppModel.Kategori_malzeme">
+              <MappingFragment StoreEntitySet="Kategori_malzeme">
+                <ScalarProperty Name="katMalzemeId" ColumnName="katMalzemeId" />
+                <ScalarProperty Name="Kategori_malzeme1" ColumnName="Kategori_malzeme" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategori_yemek">
+            <EntityTypeMapping TypeName="YemekAppModel.Kategori_yemek">
+              <MappingFragment StoreEntitySet="Kategori_yemek">
+                <ScalarProperty Name="katYemekId" ColumnName="katYemekId" />
+                <ScalarProperty Name="Kategori_yemek1" ColumnName="Kategori_yemek" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Malzeme_kategori">
+            <EntityTypeMapping TypeName="YemekAppModel.Malzeme_kategori">
+              <MappingFragment StoreEntitySet="Malzeme_kategori">
+                <ScalarProperty Name="MalzemeKategoriId" ColumnName="MalzemeKategoriId" />
+                <ScalarProperty Name="Malzeme_id" ColumnName="Malzeme_id" />
+                <ScalarProperty Name="Kategori_malzeme_id" ColumnName="Kategori_malzeme_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Malzemeler">
+            <EntityTypeMapping TypeName="YemekAppModel.Malzemeler">
+              <MappingFragment StoreEntitySet="Malzemeler">
+                <ScalarProperty Name="malzemeId" ColumnName="malzemeId" />
+                <ScalarProperty Name="Malzemeler1" ColumnName="Malzemeler" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="YemekAppModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="takipci_Tablosu">
+            <EntityTypeMapping TypeName="YemekAppModel.takipci_Tablosu">
+              <MappingFragment StoreEntitySet="takipci_Tablosu">
+                <ScalarProperty Name="takipId" ColumnName="takipId" />
+                <ScalarProperty Name="takipEdenUyeId" ColumnName="takipEdenUyeId" />
+                <ScalarProperty Name="takipEdilenUyeId" ColumnName="takipEdilenUyeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="uye_Tablosu">
+            <EntityTypeMapping TypeName="YemekAppModel.uye_Tablosu">
+              <MappingFragment StoreEntitySet="uye_Tablosu">
+                <ScalarProperty Name="uyeId" ColumnName="uyeId" />
+                <ScalarProperty Name="uyeAdSoyad" ColumnName="uyeAdSoyad" />
+                <ScalarProperty Name="uyeEmail" ColumnName="uyeEmail" />
+                <ScalarProperty Name="uyeSifre" ColumnName="uyeSifre" />
+                <ScalarProperty Name="uyeTelefon" ColumnName="uyeTelefon" />
+                <ScalarProperty Name="uyeAdmin" ColumnName="uyeAdmin" />
+                <ScalarProperty Name="uyeFoto" ColumnName="uyeFoto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Yemek_kategori">
+            <EntityTypeMapping TypeName="YemekAppModel.Yemek_kategori">
+              <MappingFragment StoreEntitySet="Yemek_kategori">
+                <ScalarProperty Name="yemekKategoriId" ColumnName="yemekKategoriId" />
+                <ScalarProperty Name="Yemek_id" ColumnName="Yemek_id" />
+                <ScalarProperty Name="Kategori_yemek_id" ColumnName="Kategori_yemek_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Yemek_malzeme">
+            <EntityTypeMapping TypeName="YemekAppModel.Yemek_malzeme">
+              <MappingFragment StoreEntitySet="Yemek_malzeme">
+                <ScalarProperty Name="yemekMalzemeId" ColumnName="yemekMalzemeId" />
+                <ScalarProperty Name="Yemek_id" ColumnName="Yemek_id" />
+                <ScalarProperty Name="Malzeme_id" ColumnName="Malzeme_id" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+                <ScalarProperty Name="Birim" ColumnName="Birim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Yemekler">
+            <EntityTypeMapping TypeName="YemekAppModel.Yemekler">
+              <MappingFragment StoreEntitySet="Yemekler">
+                <ScalarProperty Name="yemekId" ColumnName="yemekId" />
+                <ScalarProperty Name="YemekUyeId" ColumnName="YemekUyeId" />
+                <ScalarProperty Name="YemekAdi" ColumnName="YemekAdi" />
+                <ScalarProperty Name="Tarif" ColumnName="Tarif" />
+                <ScalarProperty Name="yemekFoto" ColumnName="yemekFoto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

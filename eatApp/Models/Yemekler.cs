@@ -26,6 +26,7 @@ namespace eatApp.Models
         public string YemekUyeId { get; set; }
         public string YemekAdi { get; set; }
         public string Tarif { get; set; }
+        public string yemekFoto { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<favori_Tablo> favori_Tablo { get; set; }

@@ -13,5 +13,6 @@ namespace eatApp.ViewModel
         public string uyeSifre { get; set; }
         public string uyeTelefon { get; set; }
         public bool uyeAdmin { get; set; }
+        public string uyeFoto { get; set; }
     }
 }

@@ -12,6 +12,7 @@ namespace eatApp.ViewModel
         public string Malzeme_id { get; set; }
         public string Miktar { get; set; }
         public string Birim { get; set; }
+        public malzemelerModel YemekMalzeme { get; set; }
 
 
     }

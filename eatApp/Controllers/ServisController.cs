@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -13,7 +15,7 @@ namespace eatApp.Controllers
     public class ServisController : ApiController
     {
 
-        YemekAppEntities db = new YemekAppEntities();
+        YemekAppEntities1 db = new YemekAppEntities1();
         sonucModel sonuc = new sonucModel();
 
         #region Uye
@@ -131,6 +133,51 @@ namespace eatApp.Controllers
             db.SaveChanges();
             sonuc.islem = true;
             sonuc.mesaj = "Üye Silindi";
+
+            return sonuc;
+        }
+
+
+        [HttpPost]
+        [Route("api/uyefotoguncelle")]
+        public sonucModel UyeFotoGuncelle(uyeFoto model)
+        {
+            uye_Tablosu uye = db.uye_Tablosu.Where(s => s.uyeId == model.uyeId).SingleOrDefault();
+
+
+            if (uye == null)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Kayıt Bulunamadı!";
+                return sonuc;
+            }
+
+            if (uye.uyeFoto != "profil.jpg")
+            {
+                string yol = System.Web.Hosting.HostingEnvironment.MapPath("~/Dosyalar/" + uye.uyeFoto);
+                if (File.Exists(yol))
+                {
+                    File.Delete(yol);
+                }
+            }
+
+            string data = model.fotoData;
+            string base64 = data.Substring(data.IndexOf(',') + 1);
+            base64 = base64.Trim('\0');
+            byte[] imgbytes = Convert.FromBase64String(base64);
+            string dosyaAdi = uye.uyeId + model.fotoUzanti.Replace("image/", ".");
+            using (var ms = new MemoryStream(imgbytes, 0, imgbytes.Length))
+            {
+                Image img = Image.FromStream(ms, true);
+                img.Save(System.Web.Hosting.HostingEnvironment.MapPath("~/Dosyalar/" + dosyaAdi));
+
+            }
+            uye.uyeFoto = dosyaAdi;
+            db.SaveChanges();
+
+            sonuc.islem = true;
+            sonuc.mesaj = "Fotoğraf Güncellendi";
+
 
             return sonuc;
         }
@@ -253,6 +300,24 @@ namespace eatApp.Controllers
 
             return kayit;
         }
+
+        // favori uyeid ye göre listeleme 
+        [HttpGet]
+        [Route("api/favoribyuyeid/{uyeıd}")]
+
+        public List<favoriModel> FavoriByUyeId(string uyeıd)
+        {
+            List<favoriModel> kayit = db.favori_Tablo.Where(s => s.favoriUyeId == uyeıd).Select(x => new favoriModel()
+            {
+
+                favoriId = x.favoriId,
+                favoriUyeId = x.favoriUyeId,
+                favoriYemekId = x.favoriYemekId,
+            }).ToList();
+
+            return kayit;
+        }
+
         //favoriye ekleme
         [HttpPost]
         [Route("api/favoriekle")]
@@ -488,21 +553,23 @@ namespace eatApp.Controllers
 
 
         [HttpDelete]
-        [Route("api/yemekkategorisil/{yemekKatId}")]
-        public sonucModel YemekKategoriSil(string yemekKatId)
-        {
-
-            Yemek_kategori kayit = db.Yemek_kategori.Where(s => s.yemekKategoriId == yemekKatId).SingleOrDefault();
-
-            if (kayit == null)
+        [Route("api/yemekkategorisil/{yemekıd}")]
+        public sonucModel YemekKategoriSilyemekid(string yemekıd)
+        {             
+            for (int i = 0; yemekıd.Count() > 0; i++)
             {
-                sonuc.islem = false;
-                sonuc.mesaj = "Kayıt Bulunamadı";
-                return sonuc;
-            }
+                Yemek_kategori kayit = db.Yemek_kategori.Where(s => s.Yemek_id == yemekıd).SingleOrDefault();
 
-            db.Yemek_kategori.Remove(kayit);
-            db.SaveChanges();
+                if (kayit == null)
+                {
+                    sonuc.islem = false;
+                    sonuc.mesaj = "Kayıt Bulunamadı";
+                    return sonuc;
+                }
+
+                db.Yemek_kategori.Remove(kayit);
+                db.SaveChanges();
+            }
             sonuc.mesaj = "Kategorideki Yemek Silindi";
             sonuc.islem = true;
             return sonuc;
@@ -527,6 +594,7 @@ namespace eatApp.Controllers
             {
                 kayit.UyeBilgisi = UyeById(kayit.YemekUyeId);
                 kayit.YemekKategori = yemekKategoriListebyid(kayit.yemekId);
+                kayit.YemekMalzeme = YemekMalYemekId(kayit.yemekId);
                
             }
             return liste;
@@ -572,7 +640,49 @@ namespace eatApp.Controllers
             return sonuc;
         }
 
+        [HttpPost]
+        [Route("api/yemekfotoguncelle")]
+        public sonucModel YemekFotoGuncelle(YemekFoto model)
+        {
+            Yemekler yemek = db.Yemekler.Where(s => s.yemekId == model.yemekId).SingleOrDefault();
 
+
+            if (yemek == null)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Kayıt Bulunamadı!";
+                return sonuc;
+            }
+
+            if (yemek.yemekFoto != "yemek.jpg")
+            {
+                string yol = System.Web.Hosting.HostingEnvironment.MapPath("~/Dosyalar/" + yemek.yemekFoto);
+                if (File.Exists(yol))
+                {
+                    File.Delete(yol);
+                }
+            }
+
+            string data = model.fotoData;
+            string base64 = data.Substring(data.IndexOf(',') + 1);
+            base64 = base64.Trim('\0');
+            byte[] imgbytes = Convert.FromBase64String(base64);
+            string dosyaAdi = yemek.yemekId + model.fotoUzanti.Replace("image/", ".");
+            using (var ms = new MemoryStream(imgbytes, 0, imgbytes.Length))
+            {
+                Image img = Image.FromStream(ms, true);
+                img.Save(System.Web.Hosting.HostingEnvironment.MapPath("~/Dosyalar/" + dosyaAdi));
+
+            }
+            yemek.yemekFoto = dosyaAdi;
+            db.SaveChanges();
+
+            sonuc.islem = true;
+            sonuc.mesaj = "Fotoğraf Güncellendi";
+
+
+            return sonuc;
+        }
 
         [HttpPut]
         [Route("api/yemekduzenle")]
@@ -613,7 +723,9 @@ namespace eatApp.Controllers
                 sonuc.mesaj = "Tarif Bulunamadı";
                 return sonuc;
             }
-           
+            YemekMalzemeSilyemekid(yemekId);
+            YemekKategoriSilyemekid(yemekId);
+            
             db.Yemekler.Remove(kayit);
             db.SaveChanges();
             sonuc.islem = true;
@@ -676,6 +788,10 @@ namespace eatApp.Controllers
                 Birim = x.Birim
 
             }).ToList();
+            foreach (var kay in kayit)
+            {
+                kay.YemekMalzeme = MalzemeById(kay.Malzeme_id);
+            }
 
             return kayit;
         }
@@ -740,21 +856,23 @@ namespace eatApp.Controllers
 
 
         [HttpDelete]
-        [Route("api/yemekmalzemesil/{yemekmalId}")]
-        public sonucModel YemekMalzemeSil(string yemekmalId)
+        [Route("api/yemekmalzemesil/{yemekid}")]
+        public sonucModel YemekMalzemeSilyemekid(string yemekid)
         {
-
-            Yemek_malzeme kayit = db.Yemek_malzeme.Where(s => s.yemekMalzemeId == yemekmalId).SingleOrDefault();
-
-            if (kayit == null)
+            for (int i = 0; yemekid.Count() > 0; i++)
             {
-                sonuc.islem = false;
-                sonuc.mesaj = "Tarif Malzemesi Bulunamadı";
-                return sonuc;
-            }
+                Yemek_malzeme kayit = db.Yemek_malzeme.Where(s => s.Yemek_id == yemekid).SingleOrDefault();
 
-            db.Yemek_malzeme.Remove(kayit);
-            db.SaveChanges();
+                if (kayit == null)
+                {
+                    sonuc.islem = false;
+                    sonuc.mesaj = "Tarif Malzemesi Bulunamadı";
+                    return sonuc;
+                }
+
+                db.Yemek_malzeme.Remove(kayit);
+                db.SaveChanges();
+            }
             sonuc.islem = true;
             sonuc.mesaj = "Tarif Malzemesi Silindi";
 

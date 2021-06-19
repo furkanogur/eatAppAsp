@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="YemekAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="YemekAppModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="favori_Tablo">
           <Key>
             <PropertyRef Name="favoriId" />
@@ -70,6 +70,7 @@
           <Property Name="uyeSifre" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="uyeTelefon" Type="nvarchar" MaxLength="11" Nullable="false" />
           <Property Name="uyeAdmin" Type="bit" Nullable="false" />
+          <Property Name="uyeFoto" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Yemek_kategori">
           <Key>
@@ -97,6 +98,7 @@
           <Property Name="YemekUyeId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="YemekAdi" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Tarif" Type="nvarchar(max)" />
+          <Property Name="yemekFoto" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_favori_Tablo_uye_Tablosu">
           <End Role="uye_Tablosu" Type="Self.uye_Tablosu" Multiplicity="1" />
@@ -230,7 +232,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="YemekAppModelStoreContainer">
+        <EntityContainer Name="YemekAppModel1StoreContainer">
           <EntitySet Name="favori_Tablo" EntityType="Self.favori_Tablo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kategori_malzeme" EntityType="Self.Kategori_malzeme" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kategori_yemek" EntityType="Self.Kategori_yemek" Schema="dbo" store:Type="Tables" />
@@ -291,7 +293,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="YemekAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="YemekAppModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="favori_Tablo">
           <Key>
             <PropertyRef Name="favoriId" />
@@ -367,6 +369,7 @@
           <Property Name="uyeSifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="uyeTelefon" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="uyeAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="uyeFoto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="favori_Tablo" Relationship="Self.FK_favori_Tablo_uye_Tablosu" FromRole="uye_Tablosu" ToRole="favori_Tablo" />
           <NavigationProperty Name="takipci_Tablosu" Relationship="Self.FK_takipci_Tablosu_uye_Tablosu" FromRole="uye_Tablosu" ToRole="takipci_Tablosu" />
           <NavigationProperty Name="takipci_Tablosu1" Relationship="Self.FK_takipci_Tablosu_uye_Tablosu1" FromRole="uye_Tablosu" ToRole="takipci_Tablosu" />
@@ -402,6 +405,7 @@
           <Property Name="YemekUyeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="YemekAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Tarif" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="yemekFoto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="favori_Tablo" Relationship="Self.FK_favori_Tablo_Yemekler" FromRole="Yemekler" ToRole="favori_Tablo" />
           <NavigationProperty Name="uye_Tablosu" Relationship="Self.FK_Yemekler_uye_Tablosu" FromRole="Yemekler" ToRole="uye_Tablosu" />
           <NavigationProperty Name="Yemek_kategori" Relationship="Self.FK_Yemek_kategori_Yemekler" FromRole="Yemekler" ToRole="Yemek_kategori" />
@@ -539,7 +543,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="YemekAppEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="YemekAppEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="favori_Tablo" EntityType="Self.favori_Tablo" />
           <EntitySet Name="Kategori_malzeme" EntityType="Self.Kategori_malzeme" />
           <EntitySet Name="Kategori_yemek" EntityType="Self.Kategori_yemek" />
@@ -601,9 +605,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="YemekAppModelStoreContainer" CdmEntityContainer="YemekAppEntities">
+        <EntityContainerMapping StorageEntityContainer="YemekAppModel1StoreContainer" CdmEntityContainer="YemekAppEntities1">
           <EntitySetMapping Name="favori_Tablo">
-            <EntityTypeMapping TypeName="YemekAppModel.favori_Tablo">
+            <EntityTypeMapping TypeName="YemekAppModel1.favori_Tablo">
               <MappingFragment StoreEntitySet="favori_Tablo">
                 <ScalarProperty Name="favoriId" ColumnName="favoriId" />
                 <ScalarProperty Name="favoriYemekId" ColumnName="favoriYemekId" />
@@ -612,7 +616,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Kategori_malzeme">
-            <EntityTypeMapping TypeName="YemekAppModel.Kategori_malzeme">
+            <EntityTypeMapping TypeName="YemekAppModel1.Kategori_malzeme">
               <MappingFragment StoreEntitySet="Kategori_malzeme">
                 <ScalarProperty Name="katMalzemeId" ColumnName="katMalzemeId" />
                 <ScalarProperty Name="Kategori_malzeme1" ColumnName="Kategori_malzeme" />
@@ -620,7 +624,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Kategori_yemek">
-            <EntityTypeMapping TypeName="YemekAppModel.Kategori_yemek">
+            <EntityTypeMapping TypeName="YemekAppModel1.Kategori_yemek">
               <MappingFragment StoreEntitySet="Kategori_yemek">
                 <ScalarProperty Name="katYemekId" ColumnName="katYemekId" />
                 <ScalarProperty Name="Kategori_yemek1" ColumnName="Kategori_yemek" />
@@ -628,7 +632,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Malzeme_kategori">
-            <EntityTypeMapping TypeName="YemekAppModel.Malzeme_kategori">
+            <EntityTypeMapping TypeName="YemekAppModel1.Malzeme_kategori">
               <MappingFragment StoreEntitySet="Malzeme_kategori">
                 <ScalarProperty Name="MalzemeKategoriId" ColumnName="MalzemeKategoriId" />
                 <ScalarProperty Name="Malzeme_id" ColumnName="Malzeme_id" />
@@ -637,7 +641,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Malzemeler">
-            <EntityTypeMapping TypeName="YemekAppModel.Malzemeler">
+            <EntityTypeMapping TypeName="YemekAppModel1.Malzemeler">
               <MappingFragment StoreEntitySet="Malzemeler">
                 <ScalarProperty Name="malzemeId" ColumnName="malzemeId" />
                 <ScalarProperty Name="Malzemeler1" ColumnName="Malzemeler" />
@@ -645,7 +649,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="YemekAppModel.sysdiagrams">
+            <EntityTypeMapping TypeName="YemekAppModel1.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -656,7 +660,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="takipci_Tablosu">
-            <EntityTypeMapping TypeName="YemekAppModel.takipci_Tablosu">
+            <EntityTypeMapping TypeName="YemekAppModel1.takipci_Tablosu">
               <MappingFragment StoreEntitySet="takipci_Tablosu">
                 <ScalarProperty Name="takipId" ColumnName="takipId" />
                 <ScalarProperty Name="takipEdenUyeId" ColumnName="takipEdenUyeId" />
@@ -665,7 +669,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="uye_Tablosu">
-            <EntityTypeMapping TypeName="YemekAppModel.uye_Tablosu">
+            <EntityTypeMapping TypeName="YemekAppModel1.uye_Tablosu">
               <MappingFragment StoreEntitySet="uye_Tablosu">
                 <ScalarProperty Name="uyeId" ColumnName="uyeId" />
                 <ScalarProperty Name="uyeAdSoyad" ColumnName="uyeAdSoyad" />
@@ -673,11 +677,12 @@
                 <ScalarProperty Name="uyeSifre" ColumnName="uyeSifre" />
                 <ScalarProperty Name="uyeTelefon" ColumnName="uyeTelefon" />
                 <ScalarProperty Name="uyeAdmin" ColumnName="uyeAdmin" />
+                <ScalarProperty Name="uyeFoto" ColumnName="uyeFoto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Yemek_kategori">
-            <EntityTypeMapping TypeName="YemekAppModel.Yemek_kategori">
+            <EntityTypeMapping TypeName="YemekAppModel1.Yemek_kategori">
               <MappingFragment StoreEntitySet="Yemek_kategori">
                 <ScalarProperty Name="yemekKategoriId" ColumnName="yemekKategoriId" />
                 <ScalarProperty Name="Yemek_id" ColumnName="Yemek_id" />
@@ -686,7 +691,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Yemek_malzeme">
-            <EntityTypeMapping TypeName="YemekAppModel.Yemek_malzeme">
+            <EntityTypeMapping TypeName="YemekAppModel1.Yemek_malzeme">
               <MappingFragment StoreEntitySet="Yemek_malzeme">
                 <ScalarProperty Name="yemekMalzemeId" ColumnName="yemekMalzemeId" />
                 <ScalarProperty Name="Yemek_id" ColumnName="Yemek_id" />
@@ -697,12 +702,13 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Yemekler">
-            <EntityTypeMapping TypeName="YemekAppModel.Yemekler">
+            <EntityTypeMapping TypeName="YemekAppModel1.Yemekler">
               <MappingFragment StoreEntitySet="Yemekler">
                 <ScalarProperty Name="yemekId" ColumnName="yemekId" />
                 <ScalarProperty Name="YemekUyeId" ColumnName="YemekUyeId" />
                 <ScalarProperty Name="YemekAdi" ColumnName="YemekAdi" />
                 <ScalarProperty Name="Tarif" ColumnName="Tarif" />
+                <ScalarProperty Name="yemekFoto" ColumnName="yemekFoto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

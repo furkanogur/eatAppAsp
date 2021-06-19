@@ -29,6 +29,7 @@ namespace eatApp.Models
         public string uyeSifre { get; set; }
         public string uyeTelefon { get; set; }
         public bool uyeAdmin { get; set; }
+        public string uyeFoto { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<favori_Tablo> favori_Tablo { get; set; }
