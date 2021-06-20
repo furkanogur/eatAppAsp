@@ -366,7 +366,56 @@ namespace eatApp.Controllers
             return sonuc;
         }
 
+        // fovoriyi kaldırma ama yemekid
+        [HttpDelete]
+        [Route("api/favorisilyemekid/{yemekid}")]
+        public sonucModel FavoriSilYemekId(string yemekid)
+        {
+            for (int i = 0; yemekid.Count() > 0; i++)
+            {
+            favori_Tablo kayit = db.favori_Tablo.Where(s => s.favoriYemekId == yemekid).SingleOrDefault();
+
+            if (kayit == null)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Favori Bulunamadı";
+                return sonuc;
+            }
+           
+            db.favori_Tablo.Remove(kayit);
+            db.SaveChanges();
+            }
+            sonuc.islem = true;
+            sonuc.mesaj = "Favorilerden Silindi";
+
+            return sonuc;
+        }
         #endregion
+
+        //algoritmik yemek listele
+        [HttpGet]
+        [Route("api/algoritmikyemekliste/{takipedenid}")]
+
+        public List<takipciModel> AlgoritmikYemekListe(string takipedenid)
+        {
+            List<takipciModel> liste = db.takipci_Tablosu.Where(s => s.takipEdenUyeId == takipedenid).Select(x => new takipciModel()
+            {
+
+             takipId=x.takipId,
+             takipEdenUyeId=x.takipEdenUyeId,
+             takipEdilenUyeId=x.takipEdilenUyeId
+
+            }).ToList();
+
+            foreach (var kayit in liste)
+            {
+                kayit.UyeBilgisi = UyeById(kayit.takipEdilenUyeId);
+                kayit.YemeklerBilgisi = YemekByIdUye(kayit.takipEdilenUyeId);
+            }
+
+            return liste;
+        }
+
 
         #region KategoriYemek
         //yemeğin kategorileri(örn yemeğin tuzlu kategorisinde olması)
@@ -558,7 +607,7 @@ namespace eatApp.Controllers
         {             
             for (int i = 0; yemekıd.Count() > 0; i++)
             {
-                Yemek_kategori kayit = db.Yemek_kategori.Where(s => s.Yemek_id == yemekıd).SingleOrDefault();
+                Yemek_kategori kayit = db.Yemek_kategori.Where(s => s.Yemek_id == yemekıd).FirstOrDefault();
 
                 if (kayit == null)
                 {
@@ -588,7 +637,9 @@ namespace eatApp.Controllers
                 yemekId = x.yemekId,
                 YemekAdi = x.YemekAdi,
                 YemekUyeId = x.YemekUyeId,
-                Tarif = x.Tarif
+                Tarif = x.Tarif,
+                yemekFoto = x.yemekFoto,
+               
             }).ToList();
             foreach (var kayit in liste)
             {
@@ -613,14 +664,32 @@ namespace eatApp.Controllers
                 yemekId = x.yemekId,
                 YemekAdi = x.YemekAdi,
                 YemekUyeId = x.YemekUyeId,
-                Tarif = x.Tarif
-
+                Tarif = x.Tarif,
+                yemekFoto = x.yemekFoto,
             }).SingleOrDefault();
 
             return kayit;
         }
 
-     
+        [HttpGet]
+        [Route("api/yemekbyiduye/{uyeid}")]
+
+        public List<yemeklerModel> YemekByIdUye(string uyeid)
+        {
+            List<yemeklerModel> kayit = db.Yemekler.Where(s => s.YemekUyeId == uyeid).Select(x => new yemeklerModel()
+            {
+
+                yemekId = x.yemekId,
+                YemekAdi = x.YemekAdi,
+                YemekUyeId = x.YemekUyeId,
+                Tarif = x.Tarif,
+                yemekFoto = x.yemekFoto,
+            }).ToList();
+
+            return kayit;
+        }
+
+
 
         [HttpPost]
         [Route("api/yemekekle")]
@@ -708,15 +777,15 @@ namespace eatApp.Controllers
 
             return sonuc;
         }
+      
 
-        
         [HttpDelete]
         [Route("api/yemeksil/{yemekId}")]
         public sonucModel YemekSil(string yemekId)
         {
 
             Yemekler kayit = db.Yemekler.Where(s => s.yemekId == yemekId).SingleOrDefault();
-
+         
             if (kayit == null)
             {
                 sonuc.islem = false;
@@ -724,8 +793,9 @@ namespace eatApp.Controllers
                 return sonuc;
             }
             YemekMalzemeSilyemekid(yemekId);
+            FavoriSilYemekId(yemekId);
             YemekKategoriSilyemekid(yemekId);
-            
+
             db.Yemekler.Remove(kayit);
             db.SaveChanges();
             sonuc.islem = true;
@@ -859,9 +929,11 @@ namespace eatApp.Controllers
         [Route("api/yemekmalzemesil/{yemekid}")]
         public sonucModel YemekMalzemeSilyemekid(string yemekid)
         {
+           // List<Yemek_malzeme> sayi = db.Yemek_malzeme.Where(s => s.Yemek_id == yemekid).ToList();
+            
             for (int i = 0; yemekid.Count() > 0; i++)
             {
-                Yemek_malzeme kayit = db.Yemek_malzeme.Where(s => s.Yemek_id == yemekid).SingleOrDefault();
+                Yemek_malzeme kayit = db.Yemek_malzeme.Where(s => s.Yemek_id == yemekid).FirstOrDefault();
 
                 if (kayit == null)
                 {
@@ -872,10 +944,11 @@ namespace eatApp.Controllers
 
                 db.Yemek_malzeme.Remove(kayit);
                 db.SaveChanges();
+            
+         
             }
             sonuc.islem = true;
             sonuc.mesaj = "Tarif Malzemesi Silindi";
-
             return sonuc;
         }
 
