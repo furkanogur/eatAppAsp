@@ -21,5 +21,8 @@ namespace eatApp.ViewModel
         public List<kategoriYemekModel> KategoriYemek { get; set; }
         public List<yemekMalzemeModel> YemekMalzeme { get; set; }
 
+
+        public yemekKategoriModel YemekIdKategori { get; set; }
+    
     }
 }

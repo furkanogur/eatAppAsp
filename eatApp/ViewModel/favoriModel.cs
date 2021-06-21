@@ -10,5 +10,9 @@ namespace eatApp.ViewModel
         public string favoriId { get; set; }
         public string favoriYemekId { get; set; }
         public string favoriUyeId { get; set; }
+
+        public yemeklerModel yemekBilgisi { get; set; }
+     
+
     }
 }

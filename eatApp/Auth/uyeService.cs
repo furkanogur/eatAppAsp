@@ -20,6 +20,7 @@ namespace eatApp.Auth
                 uyeSifre = x.uyeSifre,
                 uyeTelefon = x.uyeTelefon,
                 uyeAdmin = x.uyeAdmin,
+                uyeFoto =x.uyeFoto,
 
 
             }).SingleOrDefault();

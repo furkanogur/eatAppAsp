@@ -33,7 +33,8 @@ namespace eatApp.Controllers
                 uyeSifre = x.uyeSifre,
                 uyeAdSoyad = x.uyeAdSoyad,
                 uyeAdmin = x.uyeAdmin,
-                uyeTelefon = x.uyeTelefon
+                uyeTelefon = x.uyeTelefon,
+                uyeFoto = x.uyeFoto
             }).ToList();
             return liste;
         }
@@ -52,7 +53,9 @@ namespace eatApp.Controllers
                 uyeSifre = x.uyeSifre,
                 uyeAdSoyad = x.uyeAdSoyad,
                 uyeAdmin = x.uyeAdmin,
-                uyeTelefon = x.uyeTelefon
+                uyeTelefon = x.uyeTelefon,
+                uyeFoto=x.uyeFoto
+                
 
             }).SingleOrDefault();
 
@@ -182,6 +185,7 @@ namespace eatApp.Controllers
             return sonuc;
         }
 
+
         #endregion
 
         #region Takipci
@@ -301,6 +305,10 @@ namespace eatApp.Controllers
             return kayit;
         }
 
+
+       
+
+
         // favori uyeid ye göre listeleme 
         [HttpGet]
         [Route("api/favoribyuyeid/{uyeıd}")]
@@ -314,7 +322,10 @@ namespace eatApp.Controllers
                 favoriUyeId = x.favoriUyeId,
                 favoriYemekId = x.favoriYemekId,
             }).ToList();
-
+            foreach (var item in kayit)
+            {
+                item.yemekBilgisi = YemekFavById(item.favoriYemekId);
+            }
             return kayit;
         }
 
@@ -666,10 +677,40 @@ namespace eatApp.Controllers
                 YemekUyeId = x.YemekUyeId,
                 Tarif = x.Tarif,
                 yemekFoto = x.yemekFoto,
-            }).SingleOrDefault();
+               
+            }).FirstOrDefault();
+
+           
 
             return kayit;
         }
+
+
+
+
+
+
+        [HttpGet]
+        [Route("api/yemekfavbyid/{yemekId}")]
+
+        public yemeklerModel YemekFavById(string yemekId)
+        {
+            yemeklerModel liste = db.Yemekler.Where(s => s.yemekId == yemekId).Select(x => new yemeklerModel()
+            {
+
+                yemekId = x.yemekId,
+                YemekAdi = x.YemekAdi,
+                YemekUyeId = x.YemekUyeId,
+                Tarif = x.Tarif,
+                yemekFoto = x.yemekFoto,
+
+            }).FirstOrDefault();
+            return liste;
+        }
+
+
+
+
 
         [HttpGet]
         [Route("api/yemekbyiduye/{uyeid}")]
@@ -684,8 +725,8 @@ namespace eatApp.Controllers
                 YemekUyeId = x.YemekUyeId,
                 Tarif = x.Tarif,
                 yemekFoto = x.yemekFoto,
-            }).ToList();
-
+              }).ToList();
+            
             return kayit;
         }
 
