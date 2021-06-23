@@ -244,7 +244,7 @@ namespace eatApp.Controllers
         public sonucModel TakipciEkle(takipciModel model)
         {
 
-            if (db.takipci_Tablosu.Count(s => s.takipId == model.takipId) > 0)
+            if (db.takipci_Tablosu.Count(s => s.takipEdenUyeId == model.takipEdenUyeId && s.takipEdilenUyeId ==model.takipEdilenUyeId) > 0)
             {
                 sonuc.islem = false;
                 sonuc.mesaj = "Bu Kişi Zaten Takip Ediliyor!";
@@ -885,7 +885,7 @@ namespace eatApp.Controllers
         }
         //yemek malzeme yemek ıd ile arama
         [HttpGet]
-        [Route("api/yemekmalyemekıd/{yemekıd}")]
+        [Route("api/yemekmalyemekid/{yemekıd}")]
 
         public List<yemekMalzemeModel> YemekMalYemekId(string yemekıd)
         {
@@ -1023,6 +1023,28 @@ namespace eatApp.Controllers
                 Kategori_malzeme1 = x.Kategori_malzeme1
             }).ToList();
             return liste;
+        }
+
+        [HttpPut]
+        [Route("api/Katmalduzenle")]
+
+        public sonucModel KatMalzDuzenle(kategoriMalzemeModel model)
+        {
+            Kategori_malzeme kayit = db.Kategori_malzeme.Where(s => s.katMalzemeId == model.katMalzemeId).SingleOrDefault();
+
+            if (kayit == null)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Malzeme Bulunamadı";
+                return sonuc;
+            }
+
+            kayit.Kategori_malzeme1 = model.Kategori_malzeme1;
+
+            db.SaveChanges();
+            sonuc.islem = true;
+            sonuc.mesaj = "Malzeme Düzenlendi";
+            return sonuc;
         }
 
         [HttpPost]
@@ -1222,7 +1244,7 @@ namespace eatApp.Controllers
         }
 
         [HttpPut]
-        [Route("api/malzemedüzenle")]
+        [Route("api/malzemeduzenle")]
 
         public sonucModel MalzemeDüzenle(malzemelerModel model)
         {
@@ -1256,6 +1278,21 @@ namespace eatApp.Controllers
                 sonuc.mesaj = "Malzeme Bulunamadı";
                 return sonuc;
             }
+
+            if (db.Yemek_malzeme.Count(s => s.Malzeme_id == malzemeid) > 0)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Bu Malzeme Yemekte Kullanılmaktadır!";
+                return sonuc;
+            }
+
+            if (db.Malzeme_kategori.Count(s => s.Malzeme_id == malzemeid) > 0)
+            {
+                sonuc.islem = false;
+                sonuc.mesaj = "Bu Malzeme Bir Kategoriye Ait!";
+                return sonuc;
+            }
+
 
             db.Malzemeler.Remove(kayit);
             db.SaveChanges();
